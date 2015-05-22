@@ -1,7 +1,10 @@
 
 using Microsoft.AspNet.Builder;
-
+using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.DependencyInjection;
+using System.Linq;
+
+using appPDU.Models;
 
 namespace appPDU
 {
@@ -11,6 +14,12 @@ namespace appPDU
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSingleton<IObjectModelRepository,ObjectModelRepository>();
+//             services.Configure<MvcOptions>(options =>
+//                                                     {
+//                                                       options.OutputFormatters.ToList().RemoveAll(formatter => 
+//                                                       formatter.Instance is XmlDataContractSerializerOutputFormatter);
+//                                                     });
         }
 
         public void Configure(IApplicationBuilder app)

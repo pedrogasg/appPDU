@@ -10,25 +10,31 @@ namespace appPDU.Controllers
 		public class ObjectModelController:Controller
 		{
 			const string ROUTE_BY_ID = "GetByIdRoute"; 
-			static readonly List<ObjectModel> _models = new List<ObjectModel>()
-			{
-				new ObjectModel
-				{
-					Id = Guid.NewGuid(),
-					Title = "First Element",
-					Name = "first_element",
-					Type = 0
-				}
-			};
+// 			static readonly List<ObjectModel> _models = new List<ObjectModel>()
+// 			{
+// 				new ObjectModel
+// 				{
+// 					Id = Guid.NewGuid(),
+// 					Title = "First Element",
+// 					Name = "first_element",
+// 					Type = 0
+// 				}
+// 			};
+
+			private readonly IObjectModelRepository _repository;
+			
+			public ObjectModelController(IObjectModelRepository repository){
+				_repository = repository;
+			}
 			[HttpGetAttribute]
 			public IEnumerable<ObjectModel> GetAll()
 			{
-				return _models;
+				return _repository.AllModels;
 			}
 			[HttpGetAttribute("{id:Guid}", Name=ROUTE_BY_ID)]
-			public IActionResult GetById(Guid Id)
+			public IActionResult GetById(Guid id)
 			{
-				var model = _models.FirstOrDefault(x=>x.Id == Id);
+				var model = _repository.GetById(id);
 				if(model == null){
 					return HttpNotFound();
 				}
@@ -44,22 +50,22 @@ namespace appPDU.Controllers
 				else
 				{
 					model.Id = Guid.NewGuid();
-					_models.Add(model);
+					_repository.Add(model);
 					var url =  Url.RouteUrl(ROUTE_BY_ID, new{id=model.Id});
 					Context.Response.StatusCode = 201;
 					Context.Response.Headers["Location"] = url;	
 				}
 			}
 			[HttpDeleteAttribute("{id}")]
-			public IActionResult DeleteObjectModel(Guid Id)
+			public IActionResult DeleteObjectModel(Guid id)
 			{
-				var model = _models.FirstOrDefault(x=> x.Id == Id);
-				if(model == null)
+
+				if(_repository.TryDelete(id))
 				{
-					return HttpNotFound();
+					return new HttpStatusCodeResult(204);
 				}
-				_models.Remove(model);
-				return new HttpStatusCodeResult(204);
+
+				return HttpNotFound();
 			}	
 		}
 }
