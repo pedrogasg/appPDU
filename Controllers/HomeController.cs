@@ -6,7 +6,7 @@ namespace appPDU.Controllers
 	[RouteAttribute("/[controller]"), RouteAttribute("/")]
 	public class HomeController:Controller
 	{
-		[Route("[action]"),Route("")]
+		[RouteAttribute("[action]"),RouteAttribute("")]
 		public IActionResult Index()
 		{
 			return View();
