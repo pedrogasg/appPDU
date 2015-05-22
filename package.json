@@ -1,0 +1,9 @@
+{
+  "version": "0.0.1",
+  "name": "appPDU",
+  "private": true,
+  "devDependencies": {},
+  "dependencies": {
+    "grunt": "^0.4.5"
+  }
+}
