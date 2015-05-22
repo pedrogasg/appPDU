@@ -16,7 +16,7 @@ namespace appPDU
         public void Configure(IApplicationBuilder app)
         {
             app.UseMvc();
-
+            app.UseWelcomePage();
         }
     }
 }

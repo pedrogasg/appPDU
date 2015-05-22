@@ -25,7 +25,7 @@ namespace appPDU.Controllers
 			{
 				return _models;
 			}
-			[HttpGetAttribute("{id:Guid", Name=ROUTE_BY_ID)]
+			[HttpGetAttribute("{id:Guid}", Name=ROUTE_BY_ID)]
 			public IActionResult GetById(Guid Id)
 			{
 				var model = _models.FirstOrDefault(x=>x.Id == Id);
