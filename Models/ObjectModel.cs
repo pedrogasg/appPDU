@@ -15,6 +15,7 @@ namespace appPDU.Models
 		/*
 		public int CountryId { get; set; }
 		*/
+		public int Order{get;set;}
 
         public string Data { get; set; }
 
@@ -23,6 +24,8 @@ namespace appPDU.Models
 		public DateTime DateCreate { get; set; }
 		
 		public DateTime DateClose {get;set;}
+		
+		public bool Visible{get;set;}
 
     }
 
