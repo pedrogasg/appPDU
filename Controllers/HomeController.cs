@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNet.Mvc;
+using appPDU.Models;
 
 namespace appPDU.Controllers
 {
@@ -9,7 +10,15 @@ namespace appPDU.Controllers
 		[RouteAttribute("[action]"),RouteAttribute("")]
 		public IActionResult Index()
 		{
-			return View();
+			var model = new ObjectModel()
+			{
+				Id=Guid.NewGuid(),
+				Title="Test Container",
+				Name="test-container",
+				MetaData="{Id:'container_ id',ClassList:['container','test']}"
+				
+			};
+			return View(model);
 		}
 	}
 }

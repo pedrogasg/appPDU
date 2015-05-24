@@ -12,6 +12,8 @@ namespace appPDU.Models
         public string Name { get; set; }
 		
 		public int Type { get; set; }
+		
+		public int ChildTypeMask{get;set;}
 		/*
 		public int CountryId { get; set; }
 		*/

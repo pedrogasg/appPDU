@@ -1,2 +1,10 @@
+@model appPDU.Models.ObjectModel
+@{
+     Layout = "~/Views/Shared/_Layout.cshtml";
+ }
 <h1>Hello !</h1>
-<div>This is a view</div>
+<div>This is a view !</div>
+<div>@Model.Title</div>
+<div>
+    @Component.Invoke("Container",Model) 
+</div>
