@@ -6,5 +6,5 @@
 <div>This is a view !</div>
 <div>@Model.Title</div>
 <div>
-    @Component.Invoke("Container",Model) 
+    @await Component.InvokeAsync("Container",Model) 
 </div>

@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace appPDU.Models
 {
@@ -7,14 +8,23 @@ namespace appPDU.Models
     {
 		private ObjectModel _model;
 		private ContainerAttributes _containerAttributes;
+		
+		private IList<Guid> _children;
 		public ContainerModel(ObjectModel model)
 		{
 			_model = model;
-			_containerAttributes = JsonConvert.DeserializeObject<ContainerAttributes>(model.MetaData);
+			var metadata = JsonConvert.DeserializeObject<ContainerMetaData>(model.MetaData);
+			_containerAttributes = metadata.Attributes;
+			_children = metadata.Children;
 		}
 		public ContainerAttributes Attributes 
 		{
 			get{ return _containerAttributes;}
+		}
+		
+		public IList<Guid> Children
+		{
+			get { return _children;}
 		}
         public Guid Id 
 		{

@@ -15,7 +15,7 @@ namespace appPDU.Controllers
 				Id=Guid.NewGuid(),
 				Title="Test Container",
 				Name="test-container",
-				MetaData="{Id:'container_ id',ClassList:['container','test']}"
+				MetaData="{Attributes:{Id:'container_ id',ClassList:['container','test']},Children:[]}"
 				
 			};
 			return View(model);
