@@ -6,7 +6,7 @@ using appPDU.Models;
 
 namespace appPDU.Controllers
 {
-		[RouteAttribute("api/[controller]")]
+		[Route("api/[controller]")]
 		public class ObjectModelController:Controller
 		{
 			const string ROUTE_BY_ID = "GetByIdRoute"; 

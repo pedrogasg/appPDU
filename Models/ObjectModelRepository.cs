@@ -33,7 +33,15 @@ namespace appPDU.Models
         {
             return Task.FromResult(GetByIds(ids));
         }
-
+       public ObjectModel GetByName(string name)
+        {
+            return _models.FirstOrDefault(x => x.Name == name);
+        }
+        
+        public Task<ObjectModel> GetByNameAsync(string name)
+        {
+            return Task.FromResult(GetByName(name));
+        }
         public void Add(ObjectModel item)
         {
             item.Id = Guid.NewGuid();

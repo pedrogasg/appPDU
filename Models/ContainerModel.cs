@@ -4,27 +4,34 @@ using System.Collections.Generic;
 
 namespace appPDU.Models
 {
-    public class ContainerModel
+    public class ContainerModel:IObjectModel
     {
-		private ObjectModel _model;
-		private ContainerAttributes _containerAttributes;
-		
-		private IList<Guid> _children;
-		public ContainerModel(ObjectModel model)
+		private IObjectModel _model;
+        private ContainerMetaData _metadata;
+		public ContainerModel(){}
+		public ContainerModel(IObjectModel model)
+		{
+			AddInternalObject(model);
+		}
+		public void AddInternalObject(IObjectModel model)
 		{
 			_model = model;
-			var metadata = JsonConvert.DeserializeObject<ContainerMetaData>(model.MetaData);
-			_containerAttributes = metadata.Attributes;
-			_children = metadata.Children;
+			if(model.Metadata != null){
+				_metadata = JsonConvert.DeserializeObject<ContainerMetaData>(model.Metadata);
+			}else{
+                _metadata = new ContainerMetaData();
+				_metadata.Attributes = new ContainerAttributes();
+				_metadata.ChildrenIds = new List<Guid>();
+			}
 		}
 		public ContainerAttributes Attributes 
 		{
-			get{ return _containerAttributes;}
+			get{ return _metadata.Attributes;}
 		}
 		
-		public IList<Guid> Children
+		public IList<Guid> ChildrenIds
 		{
-			get { return _children;}
+			get { return _metadata.ChildrenIds;}
 		}
         public Guid Id 
 		{
@@ -53,8 +60,26 @@ namespace appPDU.Models
 		{
 			get{ return _model.Order;} 
 			set{ _model.Order = value;} 
-		}		
+		}
+        
+        public string Subtype
+        {
+            get { return _metadata.SubType; }
+        }	
+		public int Type { get; set; }
+		
+		public int ChildTypeMask{get;set;}	
+        public string Data { get; set; }
 
+        public string Metadata { get; set; }
+		
+		public DateTime DateCreate { get; set; }
+		
+		public DateTime DateClose {get;set;}
+		
+		public bool Visible{get;set;}
+
+        public IList<ObjectModel> Children { get; set; }
     }
 
 }

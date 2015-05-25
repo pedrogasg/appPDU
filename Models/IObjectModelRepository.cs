@@ -12,6 +12,8 @@ namespace appPDU.Models
 		Task<ObjectModel> GetByIdAsync(Guid id);
 		IList<ObjectModel> GetByIds(IList<Guid> ids);
 		Task<IList<ObjectModel>> GetByIdsASync(IList<Guid> ids);
+		ObjectModel GetByName(string name);
+		Task<ObjectModel> GetByNameAsync(string name);
 		bool TryDelete(Guid Id);
 	}
 }

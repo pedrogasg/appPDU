@@ -1,24 +1,22 @@
-using System;
 using Microsoft.AspNet.Mvc;
 using appPDU.Models;
+using appPDU.Builders;
 
 namespace appPDU.Controllers
 {
-	[RouteAttribute("/[controller]"), RouteAttribute("/")]
-	public class HomeController:Controller
-	{
-		[RouteAttribute("[action]"),RouteAttribute("")]
-		public IActionResult Index()
-		{
-			var model = new ObjectModel()
-			{
-				Id=Guid.NewGuid(),
-				Title="Test Container",
-				Name="test-container",
-				MetaData="{Attributes:{Id:'container_ id',ClassList:['container','test']},Children:[]}"
-				
-			};
-			return View(model);
-		}
-	}
+    [Route("/[controller]"), Route("/")]
+    public class HomeController : Controller
+    {
+        [Route("[action]"), Route("")]
+        public IActionResult Index()
+        {
+            var builder = new ObjectBuilder(new ObjectModel());
+            var model = builder.
+                    Title("Test Container").
+                    Name("test-container").
+                    Metadata("{Attributes:{Id:'container_ id',ClassList:['container','test']},ChildrenIds:[]}").
+                    Build();
+            return View(model);
+        }
+    }
 }

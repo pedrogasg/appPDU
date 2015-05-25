@@ -3,8 +3,13 @@ using System;
 
 namespace appPDU.Models
 {
-    public class ObjectModel
+    public class ObjectModel:IObjectModel
     {
+		public void AddInternalObject(IObjectModel model)
+		{
+			
+		}
+
         public Guid Id { get; set; }
         public Guid ParentId { get; set; }
 
@@ -21,7 +26,7 @@ namespace appPDU.Models
 
         public string Data { get; set; }
 
-        public string MetaData { get; set; }
+        public string Metadata { get; set; }
 		
 		public DateTime DateCreate { get; set; }
 		
