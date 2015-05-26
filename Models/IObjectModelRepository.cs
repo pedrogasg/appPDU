@@ -6,14 +6,11 @@ namespace appPDU.Models
 {
 	public interface IObjectModelRepository
 	{
-		IEnumerable<ObjectModel> AllModels{get;}
-		void Add(ObjectModel model);
-		ObjectModel GetById(Guid Id);
+        Task<List<ObjectModel>> AllModelsAsync();
+        Task AddAsync(ObjectModel model);
 		Task<ObjectModel> GetByIdAsync(Guid id);
-		IList<ObjectModel> GetByIds(IList<Guid> ids);
-		Task<IList<ObjectModel>> GetByIdsASync(IList<Guid> ids);
-		ObjectModel GetByName(string name);
+		Task<IList<ObjectModel>> GetByIdsAsync(IList<Guid> ids);
 		Task<ObjectModel> GetByNameAsync(string name);
-		bool TryDelete(Guid Id);
+		Task<bool> TryDeleteAsync(Guid Id);
 	}
 }

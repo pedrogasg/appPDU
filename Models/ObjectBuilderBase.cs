@@ -6,19 +6,19 @@ namespace appPDU.Builders
 		where TOutput : class, IObjectModel,new()
 		where TInput : IObjectModel
 	{
-		protected TOutput objectModel;
+		protected TOutput _objectModel;
 		protected TBuilder _this;
 		protected ObjectBuilderBase(TInput obj)
 		{
-			objectModel = new TOutput();
-			objectModel.AddInternalObject(obj);
+			_objectModel = new TOutput();
+			_objectModel.AddInternalObject(obj);
 			_this = (TBuilder)this; 	
 		}
 		
 		public TOutput Build()
 		{
-			TOutput result = objectModel;
-			objectModel = null;
+			TOutput result = _objectModel;
+			_objectModel = null;
 			return result;
 		}	
 	}

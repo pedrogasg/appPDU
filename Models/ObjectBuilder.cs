@@ -11,50 +11,50 @@ namespace appPDU.Builders
 		public ObjectBuilder(TInput obj):base(obj){}
 		public TBuilder Id(Guid id)
 		{
-			objectModel.Id = id;
+			_objectModel.Id = id;
 			return _this;
 		}
 		public TBuilder Name(string name)
 		{
-			objectModel.Name = name;
+			_objectModel.Name = name;
 			return _this;
 		}
 		public TBuilder Title(string title)
 		{
-			objectModel.Title = title;
+			_objectModel.Title = title;
 			return _this;
 		}
 		public TBuilder Order(int order)
 		{
-			objectModel.Order = order;
+			_objectModel.Order = order;
 			return _this;
 		}
 		public TBuilder DateCreate(DateTime date)
 		{
-			objectModel.DateCreate = date;
+			_objectModel.DateCreate = date;
 			return _this;
 		}
 		public TBuilder DateClose(DateTime date)
 		{
-			objectModel.DateClose = date;
+			_objectModel.DateClose = date;
 			return _this;
 		}
 		
 		public TBuilder Visible(bool visible)
 		{
-			objectModel.Visible = visible;
+			_objectModel.Visible = visible;
 			return _this;
 		}
 		
 		public TBuilder Data(string data)
 		{
-			objectModel.Data = data;
+			_objectModel.Data = data;
 			return _this;
 		}
 		
 		public TBuilder Metadata(string data)
 		{
-			objectModel.Metadata = data;
+			_objectModel.Metadata = data;
 			return _this;
 		}
 	}

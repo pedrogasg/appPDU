@@ -1,21 +1,32 @@
+using System;
 using Microsoft.AspNet.Mvc;
 using appPDU.Models;
 using appPDU.Builders;
+using System.Threading.Tasks;
 
 namespace appPDU.Controllers
 {
     [Route("/[controller]"), Route("/")]
     public class HomeController : Controller
     {
+        private readonly IObjectModelRepository _repository;
+
+        public HomeController(IObjectModelRepository repository)
+        {
+            _repository = repository;
+        }
         [Route("[action]"), Route("")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var builder = new ObjectBuilder(new ObjectModel());
             var model = builder.
-                    Title("Test Container").
-                    Name("test-container").
-                    Metadata("{Attributes:{Id:'container_ id',ClassList:['container','test']},ChildrenIds:[]}").
+                    Id(new Guid("B556DFED-C847-4C54-A7AB-D8FA99F71295")).
+                    Title("Test Container 2").
+                    Name("test-container 2").
+                    Metadata("{attributes:{id:'container_ id',classList:['container','test']},childrenIds:[]}").
+                    Data("<span>Het there</span>").
                     Build();
+            await _repository.AddAsync(model);
             return View(model);
         }
     }

@@ -13,18 +13,11 @@ namespace appPDU.ViewComponents
 		{
 			_repository = repository;	
 		}
-		public IViewComponentResult Invoke(ObjectModel model)
-		{
-			_model = new ContainerModel(model);
-            var defaultView = _model.Subtype ?? "Default";
-            _children  = _repository.GetByIds(_model.ChildrenIds);
-			return View(defaultView, _model);
-		}		
 		public async Task<IViewComponentResult> InvokeAsync(ObjectModel model)
 		{
 			_model = new ContainerModel(model);
 			var defaultView = _model.Subtype ?? "Default";
-			_children  = await _repository.GetByIdsASync(_model.ChildrenIds);
+			_children  = await _repository.GetByIdsAsync(_model.ChildrenIds);
 			return View(defaultView, _model);
 		}
 	}
