@@ -1,0 +1,6 @@
+/bower_components/
+/node_modules/
+/.vs/
+appPDU.sln
+appPDU.xproj
+appPDU.xproj.user
