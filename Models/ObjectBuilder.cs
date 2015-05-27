@@ -39,8 +39,13 @@ namespace appPDU.Builders
 			_objectModel.DateClose = date;
 			return _this;
 		}
-		
-		public TBuilder Visible(bool visible)
+        public TBuilder TypeName(string typeName)
+        {
+            _objectModel.TypeName = typeName;
+            return _this;
+        }
+
+        public TBuilder Visible(bool visible)
 		{
 			_objectModel.Visible = visible;
 			return _this;

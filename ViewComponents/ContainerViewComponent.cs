@@ -2,12 +2,13 @@ using appPDU.Models;
 using Microsoft.AspNet.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using appPDU.Builders;
+
 namespace appPDU.ViewComponents
 {
 	public class ContainerViewComponent:ViewComponent
 	{
 		private ContainerModel _model;
-		private IList<ObjectModel> _children;
 		private readonly IObjectModelRepository _repository;
 		public ContainerViewComponent(IObjectModelRepository repository)
 		{
@@ -15,9 +16,10 @@ namespace appPDU.ViewComponents
 		}
 		public async Task<IViewComponentResult> InvokeAsync(ObjectModel model)
 		{
-			_model = new ContainerModel(model);
-			var defaultView = _model.Subtype ?? "Default";
-			_children  = await _repository.GetByIdsAsync(_model.ChildrenIds);
+            var builder = new ContainerBuilder(model);
+			_model = builder.Build();
+            _model.Children = await _repository.GetByIdsAsync(_model.ChildrenIds);
+            var defaultView = _model.Subtype ?? "Default";
 			return View(defaultView, _model);
 		}
 	}

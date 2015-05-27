@@ -27,4 +27,8 @@ namespace appPDU.Builders
             return _this;
         }
     }
+    class ContainerBuilder : ContainerBuilder<ContainerBuilder, ContainerModel, IObjectModel>
+    {
+        public ContainerBuilder(ObjectModel obj) : base(obj) { }
+    }
 }

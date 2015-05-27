@@ -19,14 +19,7 @@ namespace appPDU.Controllers
         public async Task<IActionResult> Index()
         {
             var builder = new ObjectBuilder(new ObjectModel());
-            var model = builder.
-                    Id(new Guid("B556DFED-C847-4C54-A7AB-D8FA99F71295")).
-                    Title("Test Container 2").
-                    Name("test-container 2").
-                    Metadata("{attributes:{id:'container_ id',classList:['container','test']},childrenIds:[]}").
-                    Data("<span>Het there</span>").
-                    Build();
-            await _repository.AddAsync(model);
+            var model = await _repository.GetByIdAsync(new Guid("D3562E83-C5C8-45CD-B365-8F1D81EEFA80"));
             return View(model);
         }
     }

@@ -18,6 +18,8 @@ namespace appPDU.Models
         public string Name { get; set; }
         [BsonElement("type")]
         public int Type { get; set; }
+        [BsonElement("typeName")]
+        public string TypeName { get; set; }
         [BsonElement("childTypeMask")]
         public int ChildTypeMask{get;set;}
         /*
@@ -35,7 +37,6 @@ namespace appPDU.Models
         public DateTime DateClose {get;set;}
         [BsonElement("visible")]
         public bool Visible{get;set;}
-
     }
 
 }

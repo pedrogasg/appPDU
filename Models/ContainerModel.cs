@@ -12,6 +12,7 @@ namespace appPDU.Models
         public ContainerModel() { }
         public ContainerModel(IObjectModel model)
         {
+            model.TypeName = "container";
             AddInternalObject(model);
         }
         public void AddInternalObject(IObjectModel model)
@@ -31,6 +32,7 @@ namespace appPDU.Models
                 _metadata.Attributes = new ContainerAttributes();
                 _metadata.ChildrenIds = new List<Guid>();
             }
+            Children = new List<ObjectModel>();
         }
         public ContainerAttributes Attributes
         {
@@ -115,6 +117,18 @@ namespace appPDU.Models
 
         public IList<ObjectModel> Children { get; set; }
 
+        public string TypeName
+        {
+            get
+            {
+                return _model.TypeName;
+            }
+
+            set
+            {
+                _model.TypeName = value;
+            }
+        }
     }
 
 }

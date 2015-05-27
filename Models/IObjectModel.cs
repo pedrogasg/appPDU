@@ -1,3 +1,4 @@
+using appPDU.Builders;
 using System;
 namespace appPDU.Models
 {
@@ -11,7 +12,7 @@ namespace appPDU.Models
          string Name { get; set; }
 		
 		 int Type { get; set; }
-		
+		 string TypeName { get; set; }
 		 int ChildTypeMask{ get; set; }
 		/*
 		 int CountryId { get; set; }
