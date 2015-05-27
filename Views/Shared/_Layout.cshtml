@@ -11,20 +11,27 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="~/styles/main.css">
     <!-- endbuild -->
 </head>
-<body ng-app="appPDU">
+<body ng-app="appPDU" main-control>
     <!-- Add your site or application content here -->
     <div class="container">
         @RenderBody()
     </div>
+    <div class="modal" component-editor>
+        <div class="modal-window">
 
+        </div>
+    </div>
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <!-- endbuild -->
+    <script src="~/scripts/angular.js"></script>
+    <script src="~/scripts/angular-ui-router.js"></script>
+    <script src="~/scripts/app.js"></script>
 </body>
 </html>

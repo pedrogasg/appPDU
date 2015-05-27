@@ -1,13 +1,16 @@
 module.exports = function (grunt) {
-	
-//	grunt.LoadNpmTasks("grunt-contrib-concat")
-//	grunt.LoadNpmTasks("grunt-contrib-uglify")	
-//	
-//	grunt.initConfig({
-//		concat:{
-//			files:[
-//				
-//			]
-//		}	
-//	});
+    var paths = {
+        bower: "./bower_components/",
+        lib: "./" + project.webroot + "/js/"
+    };
+    	grunt.LoadNpmTasks("grunt-contrib-concat")
+    	grunt.LoadNpmTasks("grunt-contrib-uglify")	
+    	
+    //	grunt.initConfig({
+    //		concat:{
+    //			files:[
+    //				
+    //			]
+    //		}	
+    //	});
 };

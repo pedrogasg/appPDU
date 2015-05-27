@@ -1,5 +1,5 @@
 @model appPDU.Models.ContainerModel
-<div id="@Model.Name" class="@String.Join(" ", Model.Attributes.ClassList.ToArray())">
+<div id="@Model.Name" component-selector class="@String.Join(" ", Model.Attributes.ClassList.ToArray())">
     @Html.Raw(Model.Data)
     @foreach(var child in Model.Children)
     {

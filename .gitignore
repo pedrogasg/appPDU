@@ -1,6 +1,7 @@
 /bower_components/
 /node_modules/
 /.vs/
+/wwwroot/bin/
 appPDU.sln
 appPDU.xproj
 appPDU.xproj.user

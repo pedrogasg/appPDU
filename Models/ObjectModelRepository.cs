@@ -36,7 +36,8 @@ namespace appPDU.Models
         public async Task<IList<ObjectModel>> GetByIdsAsync(IList<Guid> ids)
         {
             var filter = Builders<ObjectModel>.Filter.Where(e => ids.Contains(e.Id));
-            return await _collection.Find(filter).ToListAsync(); ;
+            var sort = Builders<ObjectModel>.Sort.Ascending(e => e.Order);
+            return await _collection.Find(filter).Sort(sort).ToListAsync(); ;
         }
 
         public async Task<ObjectModel> GetByNameAsync(string name)
