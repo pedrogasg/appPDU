@@ -1,16 +1,26 @@
 module.exports = function (grunt) {
     var paths = {
-        bower: "./bower_components/",
-        lib: "./" + project.webroot + "/js/"
+        root: 'wwwroot',
+        js: 'wwwroot/scripts',
+        css: 'wwwroot/styles'
     };
-    	grunt.LoadNpmTasks("grunt-contrib-concat")
-    	grunt.LoadNpmTasks("grunt-contrib-uglify")	
-    	
-    //	grunt.initConfig({
-    //		concat:{
-    //			files:[
-    //				
-    //			]
-    //		}	
-    //	});
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    //grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-bower');
+    grunt.initConfig({
+        bower: {
+            dev: {
+                dest: paths.root,
+                js_dest: paths.js,
+                css_dest:paths.css
+            }
+        },
+        concat: {
+                files: {
+                    src: ['scripts/**/*.js'],
+                    dest: paths.js + '/app.js'
+                }
+        }
+    })
+    grunt.registerTask('default', ['bower:dev','concat']);
 };
