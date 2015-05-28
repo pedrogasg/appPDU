@@ -1,0 +1,15 @@
+﻿@model List<appPDU.Models.ObjectModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container component-page-creator">
+    <div component-page-create>
+
+    </div>
+    <ul>
+        @foreach (var page in Model)
+        {
+            <li>@page.Title</li>
+        }
+    </ul>
+</div>

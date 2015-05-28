@@ -8,7 +8,7 @@ namespace appPDU.Models
     public class ContainerModel : IObjectModel
     {
         private IObjectModel _model;
-        private ContainerMetaData _metadata;
+        private ContainerMetadata _metadata;
         public ContainerModel() { }
         public ContainerModel(IObjectModel model)
         {
@@ -24,11 +24,11 @@ namespace appPDU.Models
             _model = model;
             if (model.Metadata != null)
             {
-                _metadata = JsonConvert.DeserializeObject<ContainerMetaData>(model.Metadata, settings);
+                _metadata = JsonConvert.DeserializeObject<ContainerMetadata>(model.Metadata, settings);
             }
             else
             {
-                _metadata = new ContainerMetaData();
+                _metadata = new ContainerMetadata();
                 _metadata.Attributes = new ContainerAttributes();
                 _metadata.ChildrenIds = new List<Guid>();
             }

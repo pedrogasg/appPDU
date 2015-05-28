@@ -7,6 +7,7 @@ namespace appPDU.Models
 	public interface IObjectModelRepository
 	{
         Task<List<ObjectModel>> AllModelsAsync();
+        Task<List<ObjectModel>> AllModelsByTypeAsync(int type);
         Task AddAsync(ObjectModel model);
 		Task<ObjectModel> GetByIdAsync(Guid id);
 		Task<IList<ObjectModel>> GetByIdsAsync(IList<Guid> ids);

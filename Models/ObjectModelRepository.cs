@@ -65,6 +65,11 @@ namespace appPDU.Models
             return client.GetDatabase(_settings.Database);
         }
 
+        public async Task<List<ObjectModel>> AllModelsByTypeAsync(int type)
+        {
+            var filter = Builders<ObjectModel>.Filter.Eq(e => e.Type, type);
+            return await _collection.Find(filter).ToListAsync();
 
+        }
     }
 }

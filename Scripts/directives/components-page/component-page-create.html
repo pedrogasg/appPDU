@@ -1,0 +1,39 @@
+﻿<button ng-click="ctrl.startCreation()">Create</button>
+<div ng-show="creationStarted">
+    <form name="newpage" ng-submit="ctrl.submit(newpage,page)" class="form-container">
+        <fieldset>
+            <div class="form-control">
+                <label for="title">Title : </label>
+                <input ng-blur="ctrl.changeTitle(page)" ng-model="page.title" name="title" type="text" required />
+            </div>
+            <div class="form-control">
+                <label for="name">Url : </label>
+                <input ng-model="page.name" clean-text name="name" type="text" pattern="[a-z/-].+[^-]$" required />
+            </div>
+            <div class="form-control">
+                <label for="description">Description : </label>
+                <input ng-model="page.description" name="description" type="text" />
+            </div>
+            <div class="form-control">
+                <div class="radio-label-left">
+                    Gabarit : 
+                </div>
+                <div class="radio-label-right">
+                    <label for="template" class="radio-label">
+                        <input ng-model="page.template" type="radio" name="template" value="plain" />
+                        Header, Main, Footer
+                    </label>
+                    <label for="template" class="radio-label">
+                        <input ng-model="page.template" type="radio" name="template" value="left" />
+                        Header, Left Side, Footer
+                    </label>
+                    <label for="template" class="radio-label">
+                        <input ng-model="page.template" type="radio" name="template" value="right" />
+                        Header, Right Side, Footer
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+        <input type="submit" />
+    </form>
+</div>
