@@ -1,14 +1,21 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
-
+using System.Collections.Generic;
 
 namespace appPDU.Models
 {
     public class WebPageModel : IObjectModel
     {
         private IObjectModel _model;
+        private WebPageMetadata _metadata;
+        public WebPageModel()
+        {
+
+        }
         public WebPageModel(IObjectModel model)
         {
-            _model = model;
+            AddInternalObject(model);
         }
         public Guid Id
         {
@@ -85,6 +92,11 @@ namespace appPDU.Models
         {
             get
             {
+                var settings = new JsonSerializerSettings()
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                };
+                _model.Metadata = JsonConvert.SerializeObject(_metadata, settings);
                 return _model.Metadata;
             }
 
@@ -132,10 +144,33 @@ namespace appPDU.Models
                 _model.Visible = value;
             }
         }
+        public List<ObjectModel> Children { get; set; }
 
-        public void AddInternalObject(IObjectModel objectModel)
+        public string Description {
+            get { return _metadata.Description; }
+            set { _metadata.Description = value; }
+        }
+
+        public void AddInternalObject(IObjectModel model)
         {
-            _model.AddInternalObject(objectModel);
+            var settings = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+            model.TypeName = "webpage";
+            model.Type = 1;
+            if (model.Metadata != null)
+            {
+                _metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata, settings);
+            }
+            else
+            {
+                _metadata = new WebPageMetadata();
+                _metadata.ChildrenIds = new List<Guid>();
+            }
+            Children = new List<ObjectModel>();
+
+            _model = model;
         }
     }
 

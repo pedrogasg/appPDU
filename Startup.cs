@@ -27,7 +27,6 @@ namespace appPDU
 
             services.Configure<MvcOptions>(options =>
             {
-                options.InputFormatters.Clear();
                 options.OutputFormatters.ToList().RemoveAll(formatter => formatter.Instance is XmlDataContractSerializerOutputFormatter || formatter.Instance is JsonOutputFormatter);
 
                 var jsonOutputFormatter = new JsonOutputFormatter();

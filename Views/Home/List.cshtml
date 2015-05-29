@@ -1,15 +1,18 @@
-﻿@model List<appPDU.Models.ObjectModel>
+﻿@model List<appPDU.Models.WebPageModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container component-page-creator">
-    <div component-page-create>
-
+    <div class="content">
+        <ul>
+            <li>Pages</li>
+            @foreach (var page in Model)
+            {
+                <li><a href="~/@page.Name">visiter</a><a component-open-page="@page.Id.ToString()">modifier</a><span>@page.Title -> @page.Description</span><span class="date">dernier revision : @page.DateCreate.ToString()</span> </li>
+            }
+        </ul>
+        <br />
+        <br />
+        <a component-open-page>Nouvelle Page</a>
     </div>
-    <ul>
-        @foreach (var page in Model)
-        {
-            <li>@page.Title</li>
-        }
-    </ul>
 </div>

@@ -1,6 +1,5 @@
-﻿<button ng-click="ctrl.startCreation()">Create</button>
-<div ng-show="creationStarted">
-    <form name="newpage" ng-submit="ctrl.submit(newpage,page)" class="form-container">
+﻿<div>
+    <form name="newpage" ng-submit="ctrl.submit(newpage,page,metadata)" class="form-container">
         <fieldset>
             <div class="form-control">
                 <label for="title">Title : </label>
@@ -12,7 +11,7 @@
             </div>
             <div class="form-control">
                 <label for="description">Description : </label>
-                <input ng-model="page.description" name="description" type="text" />
+                <input ng-model="metadata.description" name="description" type="text" />
             </div>
             <div class="form-control">
                 <div class="radio-label-left">
@@ -20,15 +19,15 @@
                 </div>
                 <div class="radio-label-right">
                     <label for="template" class="radio-label">
-                        <input ng-model="page.template" type="radio" name="template" value="plain" />
+                        <input ng-model="metadata.template" type="radio" name="template" value="plain" />
                         Header, Main, Footer
                     </label>
                     <label for="template" class="radio-label">
-                        <input ng-model="page.template" type="radio" name="template" value="left" />
+                        <input ng-model="metadata.template" type="radio" name="template" value="left" />
                         Header, Left Side, Footer
                     </label>
                     <label for="template" class="radio-label">
-                        <input ng-model="page.template" type="radio" name="template" value="right" />
+                        <input ng-model="metadata.template" type="radio" name="template" value="right" />
                         Header, Right Side, Footer
                     </label>
                 </div>

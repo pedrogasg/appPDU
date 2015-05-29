@@ -29,6 +29,6 @@ namespace appPDU.Builders
     }
     class ContainerBuilder : ContainerBuilder<ContainerBuilder, ContainerModel, IObjectModel>
     {
-        public ContainerBuilder(ObjectModel obj) : base(obj) { }
+        public ContainerBuilder(IObjectModel obj) : base(obj) { }
     }
 }

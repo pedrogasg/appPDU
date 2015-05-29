@@ -12,7 +12,6 @@ namespace appPDU.Models
         public ContainerModel() { }
         public ContainerModel(IObjectModel model)
         {
-            model.TypeName = "container";
             AddInternalObject(model);
         }
         public void AddInternalObject(IObjectModel model)
@@ -21,7 +20,8 @@ namespace appPDU.Models
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
-            _model = model;
+            model.TypeName = "container";
+            model.Type = 4;
             if (model.Metadata != null)
             {
                 _metadata = JsonConvert.DeserializeObject<ContainerMetadata>(model.Metadata, settings);
@@ -32,7 +32,8 @@ namespace appPDU.Models
                 _metadata.Attributes = new ContainerAttributes();
                 _metadata.ChildrenIds = new List<Guid>();
             }
-            Children = new List<ObjectModel>();
+            _model = model;
+            Children = new List<IObjectModel>();
         }
         public ContainerAttributes Attributes
         {
@@ -115,7 +116,7 @@ namespace appPDU.Models
             set { _model.Visible = value; }
         }
 
-        public IList<ObjectModel> Children { get; set; }
+        public IList<IObjectModel> Children { get; set; }
 
         public string TypeName
         {

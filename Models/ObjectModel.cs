@@ -37,6 +37,7 @@ namespace appPDU.Models
         public DateTime DateClose {get;set;}
         [BsonElement("visible")]
         public bool Visible{get;set;}
+
     }
 
 }

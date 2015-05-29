@@ -3,6 +3,7 @@ using Microsoft.AspNet.Mvc;
 using appPDU.Models;
 using appPDU.Builders;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace appPDU.Controllers
 {
@@ -25,7 +26,12 @@ namespace appPDU.Controllers
             }else
             {
                 var models = await _repository.AllModelsByTypeAsync(1);
-                return View("List",models);
+                var pages = new List<WebPageModel>();
+                foreach (var model in models)
+                {
+                    pages.Add(new WebPageModel(model));
+                }
+                return View("List",pages);
             }
         }
         [Route("[action]")]

@@ -10,9 +10,9 @@
                     modal = m;
                     modalWindow = m.children();
                 }
-                this.openModal = function (message) {
+                this.openModal = function (message,param) {
                     modal.css('display', 'block');
-                    var el = $compile('<div component-' + message + '></div>')($scope);
+                    var el = $compile('<div component-' + message + '="'+ param+'"></div>')($scope);
                     modalWindow.append(el);
                 }
                 this.closeModal = function (target) {

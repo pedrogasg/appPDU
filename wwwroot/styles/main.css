@@ -59,15 +59,6 @@ table {
     background-color: darkslategray;
 }
 
-.component-page-creator {
-    width: 1020px;
-    height: 800px;
-    display: block;
-    margin: 0 auto;
-    background-color: #D7CCC8;
-    font-family: sans-serif;
-}
-
 .head {
     display: block;
     width: 100%;
@@ -175,19 +166,82 @@ table {
         .form-container > fieldset > .form-control > input {
             width: 45%;
         }
-        .form-container > fieldset > .form-control >.radio-label-left,
-        .form-container > fieldset > .form-control >.radio-label-right  {
+
+        .form-container > fieldset > .form-control > .radio-label-left,
+        .form-container > fieldset > .form-control > .radio-label-right {
             display: block;
             float: left;
-            width:45%;
+            width: 45%;
             padding: 5px 10px 5px 0;
         }
-        .form-container > fieldset > .form-control >.radio-label-left{
-            text-align:right;
+
+        .form-container > fieldset > .form-control > .radio-label-left {
+            text-align: right;
         }
-        .form-container > fieldset > .form-control >.radio-label-right > label.radio-label {
+
+        .form-container > fieldset > .form-control > .radio-label-right > label.radio-label {
             width: 100%;
             display: block;
             text-align: left;
         }
 
+.component-page-creator {
+    width: 1020px;
+    height: 800px;
+    display: block;
+    margin: 0 auto;
+    background-color: #D7CCC8;
+    font-family: sans-serif;
+    padding: 15px;
+}
+
+    .component-page-creator > div.content {
+        background-color: #f9f9f9;
+        padding: 15px;
+    }
+
+        .component-page-creator > div.content a {
+            font-size: 0.8em;
+            text-decoration: none;
+            background-color: #E0E0E0;
+            border-top: 1px solid #E0E0E0;
+            border-bottom: 1px solid #E0E0E0;
+            border-right: 1px solid #BDBDBD;
+            margin: 0px;
+            padding: 15px 7px;
+            cursor: pointer;
+            color: #616161;
+        }
+        .component-page-creator > div.content a:hover {
+                background-color: #EEEEEE;
+            }
+
+        .component-page-creator > div.content span{
+            padding:15px 7px;
+            display:inline-block;
+        }
+        .component-page-creator > div.content span{
+            padding:15px 7px;
+            display:inline-block;
+        }
+            
+        .component-page-creator > div.content ul {
+            background-color: #ffffff;
+            border-left: 1px solid #E5E5E5;
+            border-right: 1px solid #E5E5E5;
+            border-top: 1px solid #E5E5E5;
+            margin-bottom:15px;
+            display:block;
+        }
+
+            .component-page-creator > div.content ul li:first-child {
+                background-color: #FAFAFA;
+                font-weight: 500;
+                padding:15px;
+            }
+
+            .component-page-creator > div.content ul li {
+                border-bottom: 1px solid #E5E5E5;
+                padding: 0;
+                clear:both;
+            }

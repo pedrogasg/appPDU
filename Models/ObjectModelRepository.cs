@@ -6,6 +6,8 @@ using Microsoft.Framework.OptionsModel;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Driver.Builders;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace appPDU.Models
 {
@@ -14,47 +16,55 @@ namespace appPDU.Models
         readonly List<ObjectModel> _models = new List<ObjectModel>();
         private readonly Settings _settings;
         private readonly IMongoDatabase _database;
-        public IMongoCollection<ObjectModel> _collection { get { return _database.GetCollection<ObjectModel>("objectModels"); } }
+        public IMongoCollection<IObjectModel> _collection { get { return _database.GetCollection<IObjectModel>("objectModels"); } }
         public ObjectModelRepository(IOptions<Settings> settings)
         {
+            var serializer = BsonSerializer.LookupSerializer<ObjectModel>();
+            BsonSerializer.RegisterSerializer<IObjectModel>(new ImpliedImplementationInterfaceSerializer<IObjectModel, ObjectModel>(serializer));
             _settings = settings.Options;
             _database = Connect();
         }
 
-        public async Task<List<ObjectModel>> AllModelsAsync()
+        public async Task<List<IObjectModel>> AllModelsAsync()
         {
            return await _collection.Find(new BsonDocument()).ToListAsync();
         }
 
-        public async Task<ObjectModel> GetByIdAsync(Guid id)
+        public async Task<IObjectModel> GetByIdAsync(Guid id)
         {
-            var filter = Builders<ObjectModel>.Filter.Eq(e => e.Id, id);
+            var filter = Builders<IObjectModel>.Filter.Eq(e => e.Id, id);
             var result = await _collection.Find(filter).ToListAsync();
             return result.FirstOrDefault();
         }
 
-        public async Task<IList<ObjectModel>> GetByIdsAsync(IList<Guid> ids)
+        public async Task<IList<IObjectModel>> GetByIdsAsync(IList<Guid> ids)
         {
-            var filter = Builders<ObjectModel>.Filter.Where(e => ids.Contains(e.Id));
-            var sort = Builders<ObjectModel>.Sort.Ascending(e => e.Order);
+            var filter = Builders<IObjectModel>.Filter.Where(e => ids.Contains(e.Id));
+            var sort = Builders<IObjectModel>.Sort.Ascending(e => e.Order);
             return await _collection.Find(filter).Sort(sort).ToListAsync(); ;
         }
 
-        public async Task<ObjectModel> GetByNameAsync(string name)
+        public async Task<IObjectModel> GetByNameAsync(string name)
         {
-            var filter = Builders<ObjectModel>.Filter.Eq(e => e.Name, name);
+            var filter = Builders<IObjectModel>.Filter.Eq(e => e.Name, name);
             var result = await _collection.Find(filter).ToListAsync();
             return result.FirstOrDefault();
         }
 
-        async Task IObjectModelRepository.AddAsync(ObjectModel model)
+        public async Task AddAsync(IObjectModel model)
         {
             await _collection.InsertOneAsync(model);
         }
-
-        async Task<bool> IObjectModelRepository.TryDeleteAsync(Guid id)
+        public async Task<bool> TryUpdateAsync(IObjectModel model)
         {
-            var filter = Builders<ObjectModel>.Filter.Eq(e => e.Id, id);
+            var filter = Builders<IObjectModel>.Filter.Eq(e => e.Id, model.Id);
+            var result = await _collection.ReplaceOneAsync(filter, model);
+            return result.IsAcknowledged;
+        }
+
+        public async Task<bool> TryDeleteAsync(Guid id)
+        {
+            var filter = Builders<IObjectModel>.Filter.Eq(e => e.Id, id);
             var result = await _collection.DeleteOneAsync(filter);
             return result.IsAcknowledged;
         }
@@ -65,9 +75,9 @@ namespace appPDU.Models
             return client.GetDatabase(_settings.Database);
         }
 
-        public async Task<List<ObjectModel>> AllModelsByTypeAsync(int type)
+        public async Task<List<IObjectModel>> AllModelsByTypeAsync(int type)
         {
-            var filter = Builders<ObjectModel>.Filter.Eq(e => e.Type, type);
+            var filter = Builders<IObjectModel>.Filter.Eq(e => e.Type, type);
             return await _collection.Find(filter).ToListAsync();
 
         }

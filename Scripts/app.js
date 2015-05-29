@@ -2,6 +2,7 @@
     'use strict';
 
     angular.module('appPDU', [
-        'ui.router'
+        'ui.router',
+        'ngResource'
     ]);
 })();
