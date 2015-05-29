@@ -4,17 +4,18 @@
         return {
             restrict: 'A',
             require: "^componentMain",
+            templateUrl: 'scripts/directives/components-editor/component-selector.html',
+            scope: {},
             link: function (scope, element, attrs, ctrl) {
-                var control = document.createElement('div');
-                control.className = "component-menu";
-                control.innerHTML = '<ul><li class="update">Update</li><li class="remove">Remove</li><li class="select">Select</li></ul>';
-                control = angular.element(control);
-                control.on('click', function (e) {
-                    var target = e.target;
-                    ctrl.openModal(target.className)
-                })
+
+                var id = attrs.componentSelector;
+                scope.action = function (action) {
+                    ctrl.setWorkingItem(element.parent());
+                    ctrl.openModal(action, id)
+                }
+
                 element.css('position', 'relative')
-                element.append(control);
+
             }
         }
     }]);

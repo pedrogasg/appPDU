@@ -6,20 +6,20 @@
             templateUrl: 'scripts/directives/components-page/component-page-create.html',
             scope: {},
             controller: ['$scope', function ($scope) {
+                function updatePageId (data, headers) {
+                    $scope.page.id = headers('id');
+                }
                 this.startCreation = function () {
                     $scope.showEditor = true;
                 }
-                this.submit = function (form,model,metadata) {
+                this.submit = function (form,model,metadata,classes) {
                     if (form.$valid) {
+                        metadata.attributes.classList = classes.split(',');
                         model.metadata = JSON.stringify(metadata);
                         if ($scope.created) {
-                            ObjectModels.update(model, function (data) {
-                                console.log(data)
-                            });
+                            ObjectModels.update(model, updatePageId);
                         } else {
-                            ObjectModels.save(model, function (data) {
-                                console.log(data);
-                            });
+                            ObjectModels.save(model, updatePageId);
                         }
                     }
                 }
@@ -30,16 +30,17 @@
             controllerAs:'ctrl',
             link: function (scope, element, attrs, ctrl) {
                 var id = attrs.componentPageCreate;
-                scope.created = new Boolean(id);
+                scope.created = Boolean(id);
                 if (scope.created) {
                     ObjectModels.get({ id: id }).$promise.then(function (page) {
                         scope.page = page;
                         scope.metadata = JSON.parse(page.metadata)
+                        scope.classes = scope.metadata.attributes.classList.join(',');
                     });
                 } else {
                     scope.page = {
                         type: 1,
-                        typeName: 'page'
+                        typeName: 'WebPage'
                     };
                 }
             }

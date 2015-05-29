@@ -8,7 +8,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace appPDU.Models
 {
-    public class ObjectModelFactory
+    public class ObjectModelFactory : IObjectModelFactory
     {
         private readonly IObjectModelRepository _repository;
         public ObjectModelFactory(IObjectModelRepository repository)
@@ -22,9 +22,8 @@ namespace appPDU.Models
                 case 1:
                     return await CreateWebPageModel(model);
                 default:
-                    break;
+                    return new ObjectModel();
             }
-            return new ObjectModel();
         }
 
         private async Task<WebPageModel> CreateWebPageModel(IObjectModel model)
@@ -34,10 +33,28 @@ namespace appPDU.Models
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
             var metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata, settings);
-            var template = await _repository.GetByNameAsync(model.TypeName);
+            var builder = new WebPageBuilder(model);
+            var children = await GetNewChildren(model, metadata);
+            foreach (var child in children)
+            {
+                builder.AddChildren(child);
+            }
+            var finalModel = builder.Build();
+            return finalModel;
+        }
 
-            var builder = new WebPageBuilder(model);            
-            return builder.Build();
+        private async Task<IList<IObjectModel>> GetNewChildren(IObjectModel model, WebPageMetadata metadata)
+        {
+            var templateModel = await _repository.GetByNameAsync(model.TypeName);
+            var template = new TemplateModel(templateModel);
+            var children = await _repository.GetByIdsAsync(template.Moulds[metadata.Template]);
+            foreach (var child in children)
+            {
+                child.Name = model.Name+"-"+child.Name;
+                child.Id = Guid.NewGuid();
+            }
+            await _repository.AddManyAsync(children);
+            return children;
         }
     }
 }

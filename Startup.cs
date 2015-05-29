@@ -37,6 +37,7 @@ namespace appPDU
             });
             services.Configure<Settings>(Configuration);
             services.AddSingleton<IObjectModelRepository, ObjectModelRepository>();
+            services.AddSingleton<IObjectModelFactory, ObjectModelFactory>();
         }
 
         public void Configure(IApplicationBuilder app)

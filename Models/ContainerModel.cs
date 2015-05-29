@@ -2,6 +2,8 @@ using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace appPDU.Models
 {
@@ -20,7 +22,7 @@ namespace appPDU.Models
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
-            model.TypeName = "container";
+            model.TypeName = "Container";
             model.Type = 4;
             if (model.Metadata != null)
             {

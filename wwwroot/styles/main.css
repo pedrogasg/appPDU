@@ -73,8 +73,13 @@ table {
     height: 400px;
     background-color: #D7CCC8;
 }
-
-.side {
+.main-center {
+    display: block;
+    width: 1020px;
+    height: 400px;
+    background-color: #D7CCC8;
+}
+.side-right, .side-left {
     display: block;
     width: 320px;
     float: left;

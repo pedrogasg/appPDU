@@ -13,10 +13,12 @@ namespace appPDU.Controllers
         const string ROUTE_BY_ID = "GetByIdRoute";
 
         private readonly IObjectModelRepository _repository;
+        private readonly IObjectModelFactory _factory;
 
-        public ObjectModelController(IObjectModelRepository repository)
+        public ObjectModelController(IObjectModelRepository repository, IObjectModelFactory factory)
         {
             _repository = repository;
+            _factory = factory;
         }
         [HttpGetAttribute]
         public async Task<IEnumerable<IObjectModel>> GetAll()
@@ -34,30 +36,32 @@ namespace appPDU.Controllers
             return new ObjectResult(model);
         }
         [HttpPostAttribute]
-        public async Task<IActionResult> CreateObjectModel([FromBodyAttribute] ObjectModel model)
+        public async Task CreateObjectModel([FromBodyAttribute] ObjectModel model)
         {
-            int status;
             if (!ModelState.IsValid)
             {
-                status = 400;
+                Context.Response.StatusCode = 400;
             }
             else
             {
                 model.Id = Guid.NewGuid();
                 model.DateCreate = DateTime.Now;
-                await _repository.AddAsync(model);
-                var url = Url.RouteUrl(ROUTE_BY_ID, new { id = model.Id });
-                status = 201;
+                IObjectModel newModel = await _factory.GetObjectModel(model);
+                await _repository.AddAsync(newModel);
+
+                var url = Url.RouteUrl(ROUTE_BY_ID, new { id = newModel.Id });
+                Context.Response.StatusCode = 201;
+                Context.Response.Headers["Id"] = newModel.Id.ToString();
                 Context.Response.Headers["Location"] = url;
             }
-            return new HttpStatusCodeResult(status);
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateObjectModel([FromBodyAttribute] ObjectModel model)
+        public async Task UpdateObjectModel([FromBodyAttribute] ObjectModel model)
         {
             var updated = await _repository.TryUpdateAsync(model);
-            var status = updated ? 200 : 204;
-            return new HttpStatusCodeResult(status);
+            Context.Response.StatusCode = updated ? 200 : 204;
+            Context.Response.Headers["Id"] = model.Id.ToString();
+            //return new HttpStatusCodeResult(status);
         }
         [HttpDeleteAttribute("{id}")]
         public async Task<IActionResult> DeleteObjectModel(Guid id)

@@ -1,8 +1,9 @@
+using MongoDB.Bson.Serialization.Attributes;
 using appPDU.Builders;
 using System;
 namespace appPDU.Models
 {
-	public interface IObjectModel
+    public interface IObjectModel
 	{
 		void AddInternalObject(IObjectModel objectModel);
 		 Guid Id { get; set; }

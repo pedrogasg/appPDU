@@ -1,0 +1,13 @@
+﻿<select ng-hide="typeSelected" ng-model="typeName" ng-change="ctrl.selectType(typeName)">
+    <option value="">-- choose template --</option>
+    <option value="HTML">html</option>
+</select>
+<div ng-show="typeSelected">
+    <textarea ng-model="content">
+
+    </textarea>
+    <div ng-bind-html="content">
+
+    </div>
+    <button ng-click="ctrl.saveContent(content)">Save</button>
+</div>

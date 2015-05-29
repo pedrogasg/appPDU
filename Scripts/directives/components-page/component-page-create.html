@@ -1,5 +1,5 @@
 ﻿<div>
-    <form name="newpage" ng-submit="ctrl.submit(newpage,page,metadata)" class="form-container">
+    <form name="newpage" ng-submit="ctrl.submit(newpage,page,metadata,classes)" class="form-container">
         <fieldset>
             <div class="form-control">
                 <label for="title">Title : </label>
@@ -12,6 +12,14 @@
             <div class="form-control">
                 <label for="description">Description : </label>
                 <input ng-model="metadata.description" name="description" type="text" />
+            </div>
+            <div class="form-control">
+                <label for="id">Id : </label>
+                <input ng-model="metadata.attributes.id" name="id" type="text" />
+            </div>
+            <div class="form-control">
+                <label for="classes">Css Classes : </label>
+                <input ng-model="classes" name="classes" type="text" />
             </div>
             <div class="form-control">
                 <div class="radio-label-left">

@@ -5,19 +5,26 @@
             restrict: 'A',
             scope: {},
             controller: function ($scope) {
-                var modal, modalWindow;
+                var modal, modalWindow, workingItem;
                 this.addModal = function (m) {
                     modal = m;
                     modalWindow = m.children();
-                }
-                this.openModal = function (message,param) {
+                };
+                this.setWorkingItem = function (item) {
+                    workingItem = item;
+                };
+                this.getWorkingItem = function () {
+                    return workingItem;
+                };
+                this.openModal = function (message, param) {
                     modal.css('display', 'block');
-                    var el = $compile('<div component-' + message + '="'+ param+'"></div>')($scope);
+                    var el = $compile('<div component-' + message + '="' + param + '"></div>')($scope);
                     modalWindow.append(el);
-                }
+                };
                 this.closeModal = function (target) {
                     if (!modalWindow[0].contains(target)) {
-                        modal.css('display', 'none')
+                        modal.css('display', 'none');
+                        workingItem = null;
                         modalWindow.empty();
                     }
                 };

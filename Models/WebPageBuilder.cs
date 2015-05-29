@@ -1,6 +1,7 @@
 ﻿using System;
 using appPDU.Models;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace appPDU.Builders
 {
@@ -12,8 +13,13 @@ namespace appPDU.Builders
     {
         public WebPageBuilder(TInput obj) : base(obj) { }
 
-        public TBuilder StartContruction()
+        public TBuilder AddChildren(TInput child)
         {
+            if(_objectModel.ChildrenIds == null)
+            {
+                _objectModel.ChildrenIds = new List<Guid>();
+            }
+            _objectModel.ChildrenIds.Add(child.Id);
             return _this;
         }
 

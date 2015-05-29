@@ -15,7 +15,7 @@ namespace appPDU.ViewComponents
 			_repository = repository;	
 		}
 
-        public async Task<IViewComponentResult> InvokeAsync(ObjectModel model)
+        public async Task<IViewComponentResult> InvokeAsync(IObjectModel model)
 		{
             var builder = new ContainerBuilder(model);
 			_model = builder.Build();

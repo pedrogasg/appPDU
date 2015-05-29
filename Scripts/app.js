@@ -3,6 +3,7 @@
 
     angular.module('appPDU', [
         'ui.router',
-        'ngResource'
+        'ngResource',
+        'ngSanitize'
     ]);
 })();

@@ -55,6 +55,10 @@ namespace appPDU.Models
         {
             await _collection.InsertOneAsync(model);
         }
+        public async Task AddManyAsync(IList<IObjectModel> models)
+        {
+            await _collection.InsertManyAsync(models);
+        }
         public async Task<bool> TryUpdateAsync(IObjectModel model)
         {
             var filter = Builders<IObjectModel>.Filter.Eq(e => e.Id, model.Id);

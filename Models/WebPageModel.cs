@@ -2,6 +2,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace appPDU.Models
 {
@@ -9,6 +11,12 @@ namespace appPDU.Models
     {
         private IObjectModel _model;
         private WebPageMetadata _metadata;
+        [BsonIgnore]
+        public IList<Guid> ChildrenIds
+        {
+            get { return _metadata.ChildrenIds; }
+            set { _metadata.ChildrenIds = value; }
+        }
         public WebPageModel()
         {
 
@@ -17,38 +25,40 @@ namespace appPDU.Models
         {
             AddInternalObject(model);
         }
+        [BsonElement("id")]
         public Guid Id
         {
             get { return _model.Id; }
             set { _model.Id = value; }
         }
-
+        [BsonElement("parentId")]
         public Guid ParentId
         {
             get { return _model.ParentId; }
             set { _model.ParentId = value; }
         }
-
+        [BsonElement("title")]
         public string Title
         {
             get { return _model.Title; }
             set { _model.Title = value; }
         }
+        [BsonElement("name")]
         public string Name
         {
             get { return _model.Name; }
             set { _model.Name = value; }
         }
-
+        [BsonElement("order")]
         public int Order
         {
             get { return _model.Order; }
             set { _model.Order = value; }
         }
+        [BsonElement("data")]
         public string Data { get; set; }
 
-        public string MetaData { get; set; }
-
+        [BsonElement("type")]
         public int Type
         {
             get
@@ -61,7 +71,7 @@ namespace appPDU.Models
                 _model.Type = value;
             }
         }
-
+        [BsonElement("typeName")]
         public string TypeName
         {
             get
@@ -74,7 +84,7 @@ namespace appPDU.Models
                 _model.TypeName = value;
             }
         }
-
+        [BsonElement("childTypeMask")]
         public int ChildTypeMask
         {
             get
@@ -87,7 +97,7 @@ namespace appPDU.Models
                 _model.ChildTypeMask = value;
             }
         }
-
+        [BsonElement("metadata")]
         public string Metadata
         {
             get
@@ -105,7 +115,7 @@ namespace appPDU.Models
                 _model.Metadata = value;
             }
         }
-
+        [BsonElement("dateCreate")]
         public DateTime DateCreate
         {
             get
@@ -118,7 +128,7 @@ namespace appPDU.Models
                 _model.DateCreate = value;
             }
         }
-
+        [BsonElement("dateClose")]
         public DateTime DateClose
         {
             get
@@ -131,7 +141,7 @@ namespace appPDU.Models
                 _model.DateClose = value;
             }
         }
-
+        [BsonElement("visible")]
         public bool Visible
         {
             get
@@ -144,8 +154,9 @@ namespace appPDU.Models
                 _model.Visible = value;
             }
         }
+        [BsonIgnore]
         public List<ObjectModel> Children { get; set; }
-
+        [BsonIgnore]
         public string Description {
             get { return _metadata.Description; }
             set { _metadata.Description = value; }
@@ -157,7 +168,7 @@ namespace appPDU.Models
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
-            model.TypeName = "webpage";
+            model.TypeName = "WebPage";
             model.Type = 1;
             if (model.Metadata != null)
             {
@@ -172,6 +183,7 @@ namespace appPDU.Models
 
             _model = model;
         }
+
     }
 
 }

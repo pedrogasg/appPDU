@@ -199,5 +199,12 @@ namespace appPDU.Models
             }
             _model = model;
         }
+        public Dictionary<string, Guid[]> Moulds
+        {
+            get
+            {
+                return _metadata.Moulds;
+            }
+        }
     }
 }
