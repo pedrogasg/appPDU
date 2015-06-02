@@ -1,9 +1,9 @@
 @model appPDU.Models.ContainerModel
 <div id="@Model.Name" class="@String.Join(" ", Model.Attributes.ClassList.ToArray())">
     @Html.Raw(Model.Data)
-    @foreach(var child in Model.Children)
+    @foreach (var child in Model.Children)
     {
-            @await Component.InvokeAsync(child.TypeName,child) 
+        @await Component.InvokeAsync(child.TypeName, child)
     }
-    <div component-selector="@Model.Id.ToString()" ></div>
+    <div class="item-menu" component-selector="@Model.Id.ToString()"></div>
 </div>

@@ -22,7 +22,7 @@ namespace appPDU.Models
                 case 1:
                     return await CreateWebPageModel(model);
                 default:
-                    return new ObjectModel();
+                    return model;
             }
         }
 

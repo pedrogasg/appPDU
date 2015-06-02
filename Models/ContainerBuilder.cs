@@ -31,4 +31,9 @@ namespace appPDU.Builders
     {
         public ContainerBuilder(IObjectModel obj) : base(obj) { }
     }
+
+    class HtmlBuilder:ContainerBuilder<HtmlBuilder,HtmlModel,IObjectModel>
+    {
+        public HtmlBuilder(IObjectModel obj) : base(obj) { }
+    }
 }

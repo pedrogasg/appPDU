@@ -14,7 +14,7 @@
                     ctrl.openModal(action, id)
                 }
 
-                element.css('position', 'relative')
+                element.parent().css('position', 'relative')
 
             }
         }

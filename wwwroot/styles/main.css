@@ -73,12 +73,14 @@ table {
     height: 400px;
     background-color: #D7CCC8;
 }
+
 .main-center {
     display: block;
     width: 1020px;
     height: 400px;
     background-color: #D7CCC8;
 }
+
 .side-right, .side-left {
     display: block;
     width: 320px;
@@ -95,37 +97,41 @@ table {
     background-color: #8D6E63;
 }
 
-.component-menu {
+.item-menu {
     display: block;
     position: absolute;
     top: 0;
     left: 0;
 }
 
-    .component-menu ul {
+    .item-menu > .component-menu {
+        display: block;
     }
 
-        .component-menu ul li:first-child {
-            border-left: 1px solid #3E2723;
-        }
+.component-menu ul {
+}
 
-        .component-menu ul li {
-            float: left;
-            text-align: center;
-            border-top: 1px solid #3E2723;
-            border-right: 1px solid #3E2723;
-            border-bottom: 1px solid #3E2723;
-            color: #EFEBE9;
-            background-color: #4E342E;
-            cursor: pointer;
-            font-family: sans-serif;
-            font-size: 12px;
-            padding: 5px 10px;
-        }
+    .component-menu ul li:first-child {
+        border-left: 1px solid #3E2723;
+    }
 
-            .component-menu ul li:hover {
-                background-color: #5D4037;
-            }
+    .component-menu ul li {
+        float: left;
+        text-align: center;
+        border-top: 1px solid #3E2723;
+        border-right: 1px solid #3E2723;
+        border-bottom: 1px solid #3E2723;
+        color: #EFEBE9;
+        background-color: #4E342E;
+        cursor: pointer;
+        font-family: sans-serif;
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+        .component-menu ul li:hover {
+            background-color: #5D4037;
+        }
 
 .modal {
     display: none;
@@ -217,36 +223,38 @@ table {
             cursor: pointer;
             color: #616161;
         }
-        .component-page-creator > div.content a:hover {
+
+            .component-page-creator > div.content a:hover {
                 background-color: #EEEEEE;
             }
 
-        .component-page-creator > div.content span{
-            padding:15px 7px;
-            display:inline-block;
+        .component-page-creator > div.content span {
+            padding: 15px 7px;
+            display: inline-block;
         }
-        .component-page-creator > div.content span{
-            padding:15px 7px;
-            display:inline-block;
+
+        .component-page-creator > div.content span {
+            padding: 15px 7px;
+            display: inline-block;
         }
-            
+
         .component-page-creator > div.content ul {
             background-color: #ffffff;
             border-left: 1px solid #E5E5E5;
             border-right: 1px solid #E5E5E5;
             border-top: 1px solid #E5E5E5;
-            margin-bottom:15px;
-            display:block;
+            margin-bottom: 15px;
+            display: block;
         }
 
             .component-page-creator > div.content ul li:first-child {
                 background-color: #FAFAFA;
                 font-weight: 500;
-                padding:15px;
+                padding: 15px;
             }
 
             .component-page-creator > div.content ul li {
                 border-bottom: 1px solid #E5E5E5;
                 padding: 0;
-                clear:both;
+                clear: both;
             }

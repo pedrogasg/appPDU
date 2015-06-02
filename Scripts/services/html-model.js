@@ -13,7 +13,7 @@
                 ObjectModels.save(model, function (data, headers) {
                     metadata.childrenIds.push(headers('id'));
                     parent.metadata = JSON.stringify(metadata);
-                    ObjectModels.save(parent).$promise.then(function (object) {
+                    ObjectModels.update(parent).$promise.then(function (object) {
                         callback(html);
                     });
                 });
