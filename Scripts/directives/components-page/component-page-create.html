@@ -1,46 +1,33 @@
-﻿<div>
-    <form name="newpage" ng-submit="ctrl.submit(newpage,page,metadata,classes)" class="form-container">
-        <fieldset>
-            <div class="form-control">
-                <label for="title">Title : </label>
-                <input ng-blur="ctrl.changeTitle(page)" ng-model="page.title" name="title" type="text" required />
-            </div>
-            <div class="form-control">
-                <label for="name">Url : </label>
-                <input ng-model="page.name" clean-text name="name" type="text" pattern="[a-z/-].+[^-]$" required />
-            </div>
-            <div class="form-control">
-                <label for="description">Description : </label>
-                <input ng-model="metadata.description" name="description" type="text" />
-            </div>
-            <div class="form-control">
-                <label for="id">Id : </label>
-                <input ng-model="metadata.attributes.id" name="id" type="text" />
-            </div>
-            <div class="form-control">
-                <label for="classes">Css Classes : </label>
-                <input ng-model="classes" name="classes" type="text" />
-            </div>
-            <div class="form-control">
-                <div class="radio-label-left">
-                    Gabarit : 
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        Properties of the page !
+    </div>
+    <div class="panel-body">
+        <form name="newpage" ng-submit="ctrl.submit(newpage,page,metadata,classes)" class="form-container">
+            <fieldset>
+                <div class="form-group">
+                    <label for="title">Title : </label>
+                    <input ng-blur="ctrl.changeTitle(page)" class="form-control" ng-model="page.title" name="title" type="text" required />
                 </div>
-                <div class="radio-label-right">
-                    <label for="template" class="radio-label">
-                        <input ng-model="metadata.template" type="radio" name="template" value="plain" />
-                        Header, Main, Footer
-                    </label>
-                    <label for="template" class="radio-label">
-                        <input ng-model="metadata.template" type="radio" name="template" value="left" />
-                        Header, Left Side, Footer
-                    </label>
-                    <label for="template" class="radio-label">
-                        <input ng-model="metadata.template" type="radio" name="template" value="right" />
-                        Header, Right Side, Footer
-                    </label>
+                <div class="form-group">
+                    <label for="name">Url : </label>
+                    <p  ng-show="page.id" class="form-control-static">{{page.name}}</p>
+                    <input ng-hide="page.id" ng-model="page.name" class="form-control" clean-text name="name" type="text" pattern="[a-z/-].+[^-]$" required />
                 </div>
-            </div>
-        </fieldset>
-        <input type="submit" />
-    </form>
+                <div class="form-group">
+                    <label for="description">Description : </label>
+                    <input class="form-control" ng-model="metadata.description" name="description" type="text" />
+                </div>
+                <div class="form-group">
+                    <label for="id">Id : </label>
+                    <input class="form-control" ng-model="metadata.attributes.id" name="id" type="text" />
+                </div>
+                <div class="form-group">
+                    <label for="classes">Css Classes : </label>
+                    <input class="form-control" ng-model="classes" name="classes" type="text" />
+                </div>
+            </fieldset>
+            <input class="btn btn-default" type="submit" />
+        </form>
+    </div>
 </div>

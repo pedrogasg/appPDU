@@ -21,13 +21,13 @@
                 restrict: 'A',
                 link: function (scope, element, attrs, ngModelController) {
                     element.on('blur', function (e) {
-                        var temp = element.val().toString().toLowerCase().replace(/\s/, '-').replace(/[öäüÖÄÜáàâéèêúùûóòôÁÀÂÉÈÊÚÙÛÓÒÔß]/g, function (a) { return charMap[a] || a });
+                        var temp = element.val().toString().toLowerCase().replace(/\s/g, '-').replace(/[öäüÖÄÜáàâéèêúùûóòôÁÀÂÉÈÊÚÙÛÓÒÔß]/g, function (a) { return charMap[a] || a });
                         ngModelController.$setViewValue(temp, 'clean-text');
                         ngModelController.$render();
                     })
                     ngModelController.$formatters.unshift(function (data) {
                         if (data) {
-                            var temp = data.toString().toLowerCase().replace(/\s/, '-').replace(/[öäüÖÄÜáàâéèêúùûóòôÁÀÂÉÈÊÚÙÛÓÒÔß]/g, function (a) { return charMap[a] || a });
+                            var temp = data.toString().toLowerCase().replace(/\s/g, '-').replace(/[öäüÖÄÜáàâéèêúùûóòôÁÀÂÉÈÊÚÙÛÓÒÔß]/g, function (a) { return charMap[a] || a });
                             ngModelController.$setViewValue(temp, 'clean-text');
                             ngModelController.$render();
                             return temp;

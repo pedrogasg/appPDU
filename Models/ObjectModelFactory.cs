@@ -34,10 +34,13 @@ namespace appPDU.Models
             };
             var metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata, settings);
             var builder = new WebPageBuilder(model);
-            var children = await GetNewChildren(model, metadata);
-            foreach (var child in children)
+            if (!string.IsNullOrEmpty(metadata.Template))
             {
-                builder.AddChildren(child);
+                var children = await GetNewChildren(model, metadata);
+                foreach (var child in children)
+                {
+                    builder.AddChildren(child);
+                }
             }
             var finalModel = builder.Build();
             return finalModel;

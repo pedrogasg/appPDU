@@ -35,7 +35,9 @@
                     ObjectModels.get({ id: id }).$promise.then(function (page) {
                         scope.page = page;
                         scope.metadata = JSON.parse(page.metadata)
-                        scope.classes = scope.metadata.attributes.classList.join(',');
+                        if (scope.metadata.attributes && scope.metadata.attributes.classList) {
+                            scope.classes = scope.metadata.attributes.classList.join(',');
+                        }
                     });
                 } else {
                     scope.page = {

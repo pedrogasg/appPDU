@@ -155,47 +155,6 @@ table {
     box-shadow: 0px 0px 5px 0px #795548;
 }
 
-.form-container {
-    width: 600px;
-    height: auto;
-}
-
-    .form-container > fieldset > .form-control {
-        width: 100%;
-        padding: 15px 0;
-        display: block;
-    }
-
-        .form-container > fieldset > .form-control > label {
-            width: 45%;
-            text-align: right;
-            display: block;
-            float: left;
-            padding: 5px 10px 5px 0;
-        }
-
-        .form-container > fieldset > .form-control > input {
-            width: 45%;
-        }
-
-        .form-container > fieldset > .form-control > .radio-label-left,
-        .form-container > fieldset > .form-control > .radio-label-right {
-            display: block;
-            float: left;
-            width: 45%;
-            padding: 5px 10px 5px 0;
-        }
-
-        .form-container > fieldset > .form-control > .radio-label-left {
-            text-align: right;
-        }
-
-        .form-container > fieldset > .form-control > .radio-label-right > label.radio-label {
-            width: 100%;
-            display: block;
-            text-align: left;
-        }
-
 .component-page-creator {
     width: 1020px;
     height: 800px;
@@ -238,23 +197,4 @@ table {
             display: inline-block;
         }
 
-        .component-page-creator > div.content ul {
-            background-color: #ffffff;
-            border-left: 1px solid #E5E5E5;
-            border-right: 1px solid #E5E5E5;
-            border-top: 1px solid #E5E5E5;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-            .component-page-creator > div.content ul li:first-child {
-                background-color: #FAFAFA;
-                font-weight: 500;
-                padding: 15px;
-            }
-
-            .component-page-creator > div.content ul li {
-                border-bottom: 1px solid #E5E5E5;
-                padding: 0;
-                clear: both;
-            }
+ 
