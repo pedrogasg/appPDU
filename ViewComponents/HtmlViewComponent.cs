@@ -23,5 +23,12 @@ namespace appPDU.ViewComponents
             var defaultView = _model.Subtype ?? "Default";
             return View(defaultView, _model);
         }
+        public async Task<IViewComponentResult> InvokeAsync(IObjectModel model, string view)
+        {
+            var builder = new HtmlBuilder(model);
+            _model = builder.Build();
+            _model.Children = await _repository.GetByIdsAsync(_model.ChildrenIds);
+            return View(view, _model);
+        }
     }
 }

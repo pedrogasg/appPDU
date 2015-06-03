@@ -3,6 +3,7 @@
     @Html.Raw(Model.Data)
     @foreach (var child in Model.Children)
     {
-        @await Component.InvokeAsync(child.TypeName, child)
+        @await Component.InvokeAsync(child.TypeName, child, "Editor")
     }
+    <div class="item-menu" component-selector="@Model.Id.ToString()"></div>
 </div>

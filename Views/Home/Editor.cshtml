@@ -1,7 +1,7 @@
-@model appPDU.Models.ObjectModel
+@model appPDU.Models.IObjectModel
 @{
      Layout = "~/Views/Shared/_Layout.cshtml";
  }
 <div class="core">
-    @await Component.InvokeAsync("Container",Model) 
+    @await Component.InvokeAsync("Container",Model,"Editor") 
 </div>

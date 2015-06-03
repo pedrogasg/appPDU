@@ -34,11 +34,15 @@ namespace appPDU.Controllers
                 return View("List",pages);
             }
         }
-        [Route("[action]")]
-        public async Task<IActionResult> Editor()
-        {
-            var model = await _repository.GetByIdAsync(new Guid("D3562E83-C5C8-45CD-B365-8F1D81EEFA80"));
-            return View(model);
+        [Route("[action]/{name:regex(\\w.+-.*)?}")]
+        public async Task<IActionResult> Editor(string name)
+        { 
+            if (!String.IsNullOrEmpty(name))
+            {
+                var model = await _repository.GetByNameAsync(name);
+                return View(model);
+            }
+            return HttpNotFound();
         }
 
     }
