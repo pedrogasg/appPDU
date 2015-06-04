@@ -9,7 +9,7 @@ namespace appPDU.Models
     {
         public string Description { get; set; }
         public IList<Guid> ChildrenIds { get; set; }
-        public string Template { get; set; }
+        public Guid Template { get; set; }
         public ContainerAttributes Attributes { get; set; }
 
     }

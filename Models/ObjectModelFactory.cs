@@ -34,7 +34,7 @@ namespace appPDU.Models
             };
             var metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata, settings);
             var builder = new WebPageBuilder(model);
-            if (!string.IsNullOrEmpty(metadata.Template))
+            if (metadata.Template != null && metadata.Template != Guid.Empty)
             {
                 var children = await GetNewChildren(model, metadata);
                 foreach (var child in children)
@@ -50,7 +50,7 @@ namespace appPDU.Models
         {
             var templateModel = await _repository.GetByNameAsync(model.TypeName);
             var template = new TemplateModel(templateModel);
-            var children = await _repository.GetByIdsAsync(template.Moulds[metadata.Template]);
+            var children = await _repository.GetByIdsAsync(new Guid[] { metadata.Template });
             foreach (var child in children)
             {
                 child.Name = model.Name+"-"+child.Name;

@@ -31,7 +31,7 @@ module.exports = function (grunt) {
         },
         ngtemplates: {
             app: {
-                src: ['scripts/**/*.html'],
+                src: ['scripts/**/**.html'],
                 dest: paths.js + '/app-templates.js',
                 options: {
                     module: 'appPDU',

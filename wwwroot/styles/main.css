@@ -146,7 +146,7 @@ table {
 
 .modal-window {
     display: block;
-    width: 800px;
+    width: 1200px;
     height: 600px;
     margin: 0px auto;
     background-color: #EFEBE9;
@@ -197,4 +197,138 @@ table {
             display: inline-block;
         }
 
- 
+
+.fs_8 {
+    font-size: 8px;
+}
+
+.fs_10 {
+    font-size: 10px;
+}
+
+.fs_12 {
+    font-size: 12px;
+}
+
+.fs_14 {
+    font-size: 14px;
+}
+
+.fs_15 {
+    font-size: 15px;
+}
+
+.fs_16 {
+    font-size: 16px;
+}
+
+.fs_18 {
+    font-size: 18px;
+}
+
+.fs_20 {
+    font-size: 20px;
+}
+
+.fs_26 {
+    font-size: 26px;
+}
+
+.fs_30 {
+    font-size: 30px;
+}
+
+.fs_35 {
+    font-size: 35px;
+}
+
+.fs_70 {
+    font-size: 70px;
+}
+
+.row.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+    .row.no-gutters > [class^="col-"],
+    .row.no-gutters > [class*=" col-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+.row.xs-gutters {
+    margin-right: 5px;
+    margin-left: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+    .row.xs-gutters > [class^="col-"],
+    .row.xs-gutters > [class*=" col-"] {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+
+
+.inside-bootstrap-master {
+    position: relative;
+}
+
+.inside-bootstrap {
+    width: 100%;
+    height: 100%;
+    top: 10px;
+    position: absolute;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+    .inside-bootstrap > div {
+        height: 100px;
+        background-color: #ECEFF1;
+        box-shadow: inset 0px 0px 0px 15px #CFD8DC;
+    }
+.editor-cursor-master{
+    transition: 120ms ease-in-out;
+}
+.editor-cursor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+    .editor-cursor > .editor-cursor-left, .editor-cursor > .editor-cursor-right {
+        max-width: 20px;
+        min-width: 20px;
+    }
+
+    .editor-cursor > .editor-cursor-center {
+        flex: 1 auto;
+        flex-grow: 1;
+    }
+
+    .editor-cursor > .editor-cursor-bottom {
+        flex: 1 100%;
+    }
+
+    .editor-cursor > div {
+        box-shadow: inset 0px 0px 0px 1px #4E342E;
+        height: 70px;
+    }
+
+        .editor-cursor > div:last-child {
+            height: 20px;
+        }
+
+        .editor-cursor > div > span {
+            padding-top: 25px;
+            height: 100%;
+        }
+
+        .editor-cursor > div:last-child > span {
+            padding-top: 3px;
+        }

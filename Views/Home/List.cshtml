@@ -8,7 +8,18 @@
             <li>Pages</li>
             @foreach (var page in Model)
             {
-                <li><a href="~/Editor/@page.Name">Modifier</a><a href="~/@page.Name">Visiter</a><a component-open-page="@page.Id.ToString()">Properties</a><span>@page.Title -> @page.Description</span><span class="date">dernier revision : @page.DateCreate.ToString()</span> </li>
+                <li>
+                    @if (page.Template != null && page.Template != Guid.Empty)
+                    {
+                        <a href="~/Editor/@page.Name">Modifier</a><a href="~/@page.Name">Visiter</a>
+
+                    }
+                    else
+                    {
+                        <a component-open="grid" data-id="@page.Id.ToString()">Grid</a>
+                    }
+                    <a component-open="page-create" data-id="@page.Id.ToString()">Properties</a><span>@page.Title -> @page.Description</span><span class="date">dernier revision : @page.DateCreate.ToString()</span> 
+                </li>
             }
         </ul>
         <br />

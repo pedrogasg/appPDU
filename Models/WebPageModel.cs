@@ -161,6 +161,18 @@ namespace appPDU.Models
             get { return _metadata.Description; }
             set { _metadata.Description = value; }
         }
+        [BsonIgnore]
+        public Guid Template
+        {
+            get
+            {
+                return _metadata.Template;
+            }
+            set
+            {
+                _metadata.Template = value;
+            }
+        }
 
         public void AddInternalObject(IObjectModel model)
         {
