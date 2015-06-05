@@ -6,7 +6,8 @@
             require: "^componentMain",
             link: function (scope, element, attrs, ctrl) {
                 element.on('click', function (e) {
-                    ctrl.openModal(attrs.componentOpen,attrs.id);
+                    var id = attrs.id || '';
+                    ctrl.openModal(attrs.componentOpen,id);
                 })
             }
         }
