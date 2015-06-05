@@ -20,6 +20,7 @@ namespace appPDU.Controllers
             _repository = repository;
             _factory = factory;
         }
+
         [HttpGetAttribute]
         public async Task<IEnumerable<IObjectModel>> GetAll()
         {
@@ -34,6 +35,12 @@ namespace appPDU.Controllers
                 return HttpNotFound();
             }
             return new ObjectResult(model);
+        }
+        [HttpGet]
+        [Route("/api/webpages")]
+        public async Task<IEnumerable<IObjectModel>> GetPages()
+        {
+            return await _repository.AllModelsByTypeAsync(1);
         }
         [HttpPostAttribute]
         public async Task CreateObjectModel([FromBodyAttribute] ObjectModel model)

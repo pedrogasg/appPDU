@@ -1,0 +1,11 @@
+﻿@model appPDU.Models.MenuModel
+<ul class="list-group">
+    @foreach (var child in Model.Children)
+    {
+        <li class="list-group-item" role="presentation">
+            <a href="~/@child.Name">@child.Title</a>
+        </li>
+
+    }
+</ul>
+<div class="item-menu" component-menu="@Model.Id.ToString()"></div>

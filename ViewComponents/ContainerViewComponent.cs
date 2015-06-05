@@ -19,8 +19,11 @@ namespace appPDU.ViewComponents
 		{
             var builder = new ContainerBuilder(model);
 			_model = builder.Build();
-            _model.Children = await _repository.GetByIdsAsync(_model.ChildrenIds);
-            var defaultView = _model.Subtype ?? "Default";
+            if(_model.ChildrenIds.Count > 0)
+            {
+                _model.Children = await _repository.GetByIdsAsync(_model.ChildrenIds);
+            }
+            var defaultView = "Default";
 			return View(defaultView, _model);
 		}
         public async Task<IViewComponentResult> InvokeAsync(IObjectModel model, string view)

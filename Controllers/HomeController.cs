@@ -16,7 +16,7 @@ namespace appPDU.Controllers
         {
             _repository = repository;
         }
-        [Route("[action]/{name:regex(\\w.+-.*)?}"), Route("{name:regex(\\w.+-.*)?}")]
+        [Route("[action]/{name:regex(\\w.+-*)?}"), Route("{name:regex(\\w.+-*)?}")]
         public async Task<IActionResult> Index(string name)
         {
             if (!String.IsNullOrEmpty(name))
@@ -34,7 +34,7 @@ namespace appPDU.Controllers
                 return View("List",pages);
             }
         }
-        [Route("[action]/{name:regex(\\w.+-.*)?}")]
+        [Route("[action]/{name:regex(\\w.+-*)?}")]
         public async Task<IActionResult> Editor(string name)
         { 
             if (!String.IsNullOrEmpty(name))

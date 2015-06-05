@@ -10,7 +10,9 @@
                 $scope.validateData = function (data) {
                     self.closeModal(null, true);
                 }
-
+                $scope.close = function (data) {
+                    self.closeModal(null, true);
+                }
                 this.addModal = function (m) {
                     modal = m;
                     modalWindow = m.children();

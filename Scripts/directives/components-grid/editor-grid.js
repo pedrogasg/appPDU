@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-    angular.module('appPDU').directive('editorGrid', ['$document', function ($document) {
+    angular.module('appPDU').directive('editorGrid', ['$document', 'ContainerModels', function ($document, ContainerModels) {
         return {
             restrict: 'A',
             require: "^componentGrid",
@@ -8,10 +8,14 @@
             scope: {},
             controller: ['$scope', function ($scope) {
                 var self = this;
+                this.ids = [];
                 this.isLarge = false;
                 this.validateGrid = function (id) {
                     $scope.parentCtrl.selectGrid(id);
                 };
+                this.close = function () {
+                    $scope.parentCtrl.hideEditor()
+                }
                 this.expand = function () {
                     moving(false);
                 };
@@ -19,19 +23,23 @@
                     moving(true);
                 };
                 this.addGrid = function () {
+
                     var cursor = $scope.cursor,
                         className = cursor.className,
                         size = Number(cursor.dataset.size),
                         offset = Number(cursor.dataset.offset),
                         start = Number(cursor.dataset.start),
                         div = document.createElement('div');
-                    div.className = 'new-container ' + className;
-                    div.style.height = cursor.dataset.height + 'px';
-                    cursor.parentNode.insertBefore(div, cursor);
-                    cursor.dataset.start = (size + offset + start) % 12;
-                    cursor.dataset.size = 1;
-                    cursor.dataset.offset = 0;
-                    cursor.className = "col-xs-1 col-xs-offset-0";
+                    ContainerModels.createContainer($scope.parentCtrl.gridId, className,self.ids.length, function (id) {
+                        self.ids.push(id);
+                        div.className = 'new-container ' + className;
+                        div.style.height = cursor.dataset.height + 'px';
+                        cursor.parentNode.insertBefore(div, cursor);
+                        cursor.dataset.start = (size + offset + start) % 12;
+                        cursor.dataset.size = 1;
+                        cursor.dataset.offset = 0;
+                        cursor.className = "col-xs-1 col-xs-offset-0";
+                    });
                 };
                 this.sprout = function () {
                     changeSize(30);

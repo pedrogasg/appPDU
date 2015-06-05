@@ -1,13 +1,39 @@
-﻿<select ng-hide="typeSelected" ng-model="typeName" ng-change="ctrl.selectType(typeName)">
+﻿<select ng-hide="ctrl.type" ng-model="typeName" ng-change="ctrl.selectType(typeName)">
     <option value="">-- choose template --</option>
     <option value="HTML">html</option>
+    <option value="MENU">menu</option>
 </select>
-<div ng-show="typeSelected">
-    <textarea ng-model="content">
-
-    </textarea>
-    <div ng-bind-html="content">
-
+<div ng-show="ctrl.type == 'HTML'">
+    <div class="row">
+        <textarea rows="30" class="col-xs-6" ng-model="content"></textarea>
+        <div class="col-xs-6" ng-bind-html="content"></div>
     </div>
-    <button ng-click="ctrl.saveContent(content)">Save</button>
+    <button class="btn btn-default" ng-click="ctrl.saveContentHtml(content)">Save</button>
+    <button class="btn btn-default" ng-click="ctrl.close()">Close</button>
+</div>
+<div ng-show="ctrl.type == 'MENU'">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Ajouter de pages
+        </div>
+        <div class="panel-body row">
+            <div class="col-xs-6">
+                <table class="table">
+                    <tr ng-repeat="link in ctrl.links track by link.id">
+                        <td> Title : {{link.title}}</td>
+                        <td> lien : {{link.name}}</td>
+                        <td><span class="btn btn-default" ng-click="ctrl.addToMenu(link.id,link.name)">Ajouter</span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-6">
+                <ul class="list-group" id="build-list">
+                    <li style="cursor:pointer" class="list-group-item" role="presentation" ng-repeat="menu in ctrl.menus track by menu.id">{{menu.name}}</li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <button class="btn btn-default" ng-click="ctrl.saveMenu()">Save</button>
+            <button class="btn btn-default" ng-click="ctrl.close()">Close</button>
+        </div>
+    </div>
 </div>

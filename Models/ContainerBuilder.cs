@@ -36,4 +36,9 @@ namespace appPDU.Builders
     {
         public HtmlBuilder(IObjectModel obj) : base(obj) { }
     }
+
+    class MenuBuilder : ContainerBuilder<MenuBuilder, MenuModel, IObjectModel>
+    {
+        public MenuBuilder(IObjectModel obj) : base(obj) { }
+    }
 }

@@ -15,5 +15,5 @@ namespace appPDU.Models
 		Task<IObjectModel> GetByNameAsync(string name);
         Task<bool> TryUpdateAsync(IObjectModel model);
         Task<bool> TryDeleteAsync(Guid Id);
-	}
+    }
 }
