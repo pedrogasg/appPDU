@@ -6,25 +6,30 @@
             require: "^componentMain",
             templateUrl: 'scripts/directives/components-editor/component-selector.html',
             scope: {},
-            link: function (scope, element, attrs, ctrl) {
-                var children = element.parent().find('.item-menu');
-                for (var i = 0, child; child = children[i]; i++) {
-                    if (child == element.get(0)) {
-                        continue;
-                    } else {
+            link: {
+                pre: function (scope, element, attrs){ 
+                    scope.action = attrs.action;
+                },
+                post: function (scope, element, attrs, ctrl) {
+                    var children = element.parent().find('.item-menu');
+                    if (children.length > 1) {
+                        console.log(scope.action);
                         scope.$destroy();
                         element.remove();
                         return;
                     }
-                }
-                var id = attrs.componentSelector;
-                scope.action = function (action) {
-                    ctrl.setWorkingItem(element.parent());
-                    ctrl.openModal(action, id)
-                }
+                    var id = attrs.componentSelector;
+                    scope.openModalWithAction = function () {
+                        console.log(scope.action);
+                    }
+                    scope.openSelector = function () {
+                        ctrl.setWorkingItem(element.parent());
+                        ctrl.openModal('select', id)
+                    }
 
-                element.parent().css('position', 'relative')
+                    element.parent().css('position', 'relative')
 
+                }
             }
         }
     }]);

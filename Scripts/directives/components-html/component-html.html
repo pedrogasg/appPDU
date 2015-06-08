@@ -1,0 +1,8 @@
+﻿<div ng-show="ctrl.type == 'HTML'">
+    <div class="row">
+        <textarea rows="30" class="col-xs-6" ng-model="content"></textarea>
+        <div class="col-xs-6" ng-bind-html="content"></div>
+    </div>
+    <button class="btn btn-default" ng-click="ctrl.saveContentHtml(content)">Save</button>
+    <button class="btn btn-default" ng-click="ctrl.close()">Close</button>
+</div>
