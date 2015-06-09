@@ -2,28 +2,36 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container component-page-creator">
-    <div class="content">
-        <ul>
-            <li>Pages</li>
+<div class="component-page-creator panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">Pages</h2>
+    </div>
+    <div class="content panel-body">
+        <ul class="list-group">
             @foreach (var page in Model)
             {
-                <li>
-                    @if (page.Template != null && page.Template != Guid.Empty)
-                    {
-                        <a href="~/Editor/@page.Name">Modifier</a><a href="~/@page.Name">Visiter</a>
+                <li class="list-group-item">
+                    <ul class="nav navbar-nav">
+                        @if (page.Template != null && page.Template != Guid.Empty)
+                        {
+                            <li><a href="~/Editor/@page.Name">Modifier</a></li>
+                            <li><a href="~/@page.Name">Visiter</a></li>
 
-                    }
-                    else
-                    {
-                        <a component-open="grid" data-id="@page.Id.ToString()">Grid</a>
-                    }
-                    <a component-open="page-create" data-id="@page.Id.ToString()">Properties</a><span>@page.Title -> @page.Description</span><span class="date">dernier revision : @page.DateCreate.ToString()</span> 
+                        }
+                        else
+                        {
+                            <li><a component-open="grid" data-id="@page.Id.ToString()">Grid</a></li>
+                        }
+                        <li><a component-open="page-create" data-id="@page.Id.ToString()">Properties</a></li>
+                        <li><span>@page.Title -> @page.Description</span></li>
+                        <li><span class="date">dernier revision : @page.DateCreate.ToString()</span></li>
+                    </ul>
+                    <div class="clearfix"></div>
                 </li>
             }
         </ul>
         <br />
         <br />
-        <a component-open="page-create">Nouvelle Page</a>
+        <a class="btn btn-default" component-open="page-create">Nouvelle Page</a>
     </div>
 </div>

@@ -1,5 +1,5 @@
 ﻿@model appPDU.Models.HtmlModel
 <div class="row">
     @Html.Raw(Model.Data)
-    <div class="item-menu" component-selector="@Model.Id.ToString()" data-action="html"></div>
+    <div class="item-menu" component-open="html"  data-id="@Model.Id.ToString()"></div>
 </div>

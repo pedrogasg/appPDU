@@ -173,16 +173,7 @@ table {
     }
 
         .component-page-creator > div.content a {
-            font-size: 0.8em;
-            text-decoration: none;
-            background-color: #E0E0E0;
-            border-top: 1px solid #E0E0E0;
-            border-bottom: 1px solid #E0E0E0;
-            border-right: 1px solid #BDBDBD;
-            margin: 0px;
-            padding: 15px 7px;
             cursor: pointer;
-            color: #616161;
         }
 
             .component-page-creator > div.content a:hover {
