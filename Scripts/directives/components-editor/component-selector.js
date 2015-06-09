@@ -13,18 +13,17 @@
                 post: function (scope, element, attrs, ctrl) {
                     var children = element.parent().find('.item-menu');
                     if (children.length > 1) {
-                        console.log(scope.action);
                         scope.$destroy();
                         element.remove();
                         return;
                     }
                     var id = attrs.componentSelector;
                     scope.openModalWithAction = function () {
-                        console.log(scope.action);
+                        ctrl.openModal(scope.action, id);
                     }
                     scope.openSelector = function () {
                         ctrl.setWorkingItem(element.parent());
-                        ctrl.openModal('select', id)
+                        ctrl.openModal('select', id);
                     }
 
                     element.parent().css('position', 'relative')

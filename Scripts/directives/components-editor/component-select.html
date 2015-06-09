@@ -2,6 +2,7 @@
     <option value="">-- choose template --</option>
     <option value="HTML">html</option>
     <option value="MENU">menu</option>
+    <option value="IFRAME">iframe</option>
 </select>
 <div ng-show="ctrl.type == 'HTML'">
     <div class="row">
@@ -36,4 +37,7 @@
             <button class="btn btn-default" ng-click="ctrl.close()">Close</button>
         </div>
     </div>
+</div>
+<div ng-show="ctrl.type == 'IFRAME'">
+    <iframe ng-src="/Iframe"></iframe>
 </div>

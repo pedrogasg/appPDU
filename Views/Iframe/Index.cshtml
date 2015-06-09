@@ -1,0 +1,11 @@
+﻿<div class="panel">
+<button id="iframeChild" class="btn btn-default">Click me !</button>
+</div>
+<script>
+    (function () {
+        var child = document.getElementById('iframeChild');
+        child.addEventListener('click', function () {
+            window.top.$(window.top.document).trigger('toto');
+        });
+    })()
+</script>

@@ -51,6 +51,9 @@
             controllerAs: 'ctrl',
             link: function (scope, element, attrs, mainCtrl) {
                 scope.mainCtrl = mainCtrl;
+                $(document).on('toto', function () {
+                    mainCtrl.closeModal();
+                });
                 scope.parentId = attrs.componentSelect;
             }
         }
