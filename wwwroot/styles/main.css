@@ -234,6 +234,9 @@ table {
 .fs_35 {
     font-size: 35px;
 }
+.fs_40 {
+    font-size: 40px;
+}
 
 .fs_70 {
     font-size: 70px;
@@ -346,3 +349,16 @@ table {
         min-height:90px;
         border:1px solid black;
     }
+.template{
+    min-height:74px;
+    min-width:66px;
+}
+.template > div {
+  height: 15px;
+  border-left: 1px solid white;
+  margin-bottom: 2px;
+  background-color: #333333;
+  border-right: 1px solid white;
+  border-radius: 3px;
+  padding:0;
+}

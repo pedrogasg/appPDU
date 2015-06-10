@@ -1,5 +1,7 @@
 using System;
 using appPDU.Models;
+using System.Threading.Tasks;
+
 namespace appPDU.Builders
 {
     class ContainerBuilder<TBuilder, TOutput, TInput> : ObjectBuilder<TBuilder, TOutput, TInput>
@@ -30,6 +32,13 @@ namespace appPDU.Builders
     class ContainerBuilder : ContainerBuilder<ContainerBuilder, ContainerModel, IObjectModel>
     {
         public ContainerBuilder(IObjectModel obj) : base(obj) { }
+        internal async Task RestoreChildren(IObjectModelRepository repo)
+        {
+            foreach (var childId in _objectModel.ChildrenIds)
+            {
+                _objectModel.Children.Add(await repo.GetByIdAsync(childId));
+            }
+        }
     }
 
     class HtmlBuilder:ContainerBuilder<HtmlBuilder,HtmlModel,IObjectModel>

@@ -4,9 +4,15 @@
         <div class="clearfix"></div>
     </div>
     <div class="panel-body">
-        <div class="col-xs-1">
-            <div class="btn btn-default text-center" ng-click="exitCtrl.addGrid()">
+        <div class="col-xs-1 btn btn-default col-xs-offset-1">
+            <div class="text-center" ng-click="exitCtrl.addGrid()">
                 <span class="glyphicon  glyphicon-plus fs_70"></span>
+            </div>
+        </div>
+        <div ng-repeat="template in templates" class="col-xs-1 btn btn-default col-xs-offset-1">
+            <div class="text-center template" >
+                <div ng-repeat="container in template.children" ng-class="container.classes">
+                </div>
             </div>
         </div>
     </div>

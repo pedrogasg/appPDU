@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.AspNet.Mvc;
 using appPDU.Models;
 using System.Threading.Tasks;
+using appPDU.Builders;
 
 namespace appPDU.Controllers
 {
@@ -37,10 +38,24 @@ namespace appPDU.Controllers
             return new ObjectResult(model);
         }
         [HttpGet]
-        [Route("/api/webpages")]
-        public async Task<IEnumerable<IObjectModel>> GetPages()
+        [Route("/api/templates")]
+        public async Task<IEnumerable<ContainerModel>> GetTemplates()
         {
-            return await _repository.AllModelsByTypeAsync(1);
+            var models = await _repository.AllModelsByTypeAsync(2);
+            var templates = new List<ContainerModel>(models.Count);
+            foreach (var model in models)
+            {
+                var builder = new ContainerBuilder(model);
+                await builder.RestoreChildren(_repository);
+                templates.Add(builder.Build());
+            }
+            return templates;
+        }
+        [HttpGet]
+        [Route("/api/type/{type:int}")]
+        public async Task<IEnumerable<IObjectModel>> GetByType(int type)
+        {
+            return await _repository.AllModelsByTypeAsync(type);
         }
         [HttpPostAttribute]
         public async Task CreateObjectModel([FromBodyAttribute] ObjectModel model)
