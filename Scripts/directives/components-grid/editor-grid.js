@@ -11,7 +11,7 @@
                 this.ids = [];
                 this.isLarge = false;
                 this.validateGrid = function (id) {
-                    $scope.parentCtrl.selectGrid(id);
+                    $scope.parentCtrl.selectGrid($scope.parentCtrl.gridId);
                 };
                 this.close = function () {
                     $scope.parentCtrl.hideEditor()

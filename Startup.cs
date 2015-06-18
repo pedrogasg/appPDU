@@ -32,6 +32,7 @@ namespace appPDU
                 var jsonOutputFormatter = new JsonOutputFormatter();
                 jsonOutputFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 jsonOutputFormatter.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
+                jsonOutputFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
                 options.OutputFormatters.Insert(0, jsonOutputFormatter);
             });

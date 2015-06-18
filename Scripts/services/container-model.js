@@ -21,6 +21,14 @@
                     };
             return ObjectModels.save(model,callback);
         }
+        function saveTemplate(parentId,id) {
+            ObjectModels.get({ id: parentId }).$promise.then(function (parent) {
+                var metadata = JSON.parse(parent.metadata);
+                metadata.template = id;
+                parent.metadata = JSON.stringify(metadata);
+                ObjectModels.update(parent);
+            });
+        }
         function createContainer(parentId, classes, order, callback, beforeUpdateParent) {
             ObjectModels.get({ id: parentId }).$promise.then(function (parent) {
                 var metadata = JSON.parse(parent.metadata),
@@ -64,7 +72,8 @@
             createContainer: createContainer,
             getPages: getPages,
             getTemplates:getTemplates,
-            createTemplateContainer: createTemplateContainer
+            createTemplateContainer: createTemplateContainer,
+            saveTemplate: saveTemplate
         }
     }]);
 })();

@@ -9,7 +9,7 @@
                 <span class="glyphicon  glyphicon-plus fs_70"></span>
             </div>
         </div>
-        <div ng-repeat="template in templates" class="col-xs-1 btn btn-default col-xs-offset-1">
+        <div ng-repeat="template in templates" class="col-xs-1 btn btn-default col-xs-offset-1" ng-click="exitCtrl.selectGrid(template.id)">
             <div class="text-center template" >
                 <div ng-repeat="container in template.children" ng-class="container.classes">
                 </div>

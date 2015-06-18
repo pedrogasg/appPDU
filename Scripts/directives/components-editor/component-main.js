@@ -7,7 +7,8 @@
             controller: function ($scope) {
                 var modal, modalWindow, workingItem, self = this;
 
-                $scope.validateData = function (data) {
+                $scope.validateData = function (id) {
+
                     self.closeModal(null, true);
                 }
                 $scope.close = function (data) {

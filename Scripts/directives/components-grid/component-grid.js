@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-    angular.module('appPDU').directive('componentGrid', [function () {
+    angular.module('appPDU').directive('componentGrid', ['ContainerModels', function (ContainerModels) {
         return {
             restrict: 'A',
             templateUrl: 'scripts/directives/components-grid/component-grid.html',
@@ -21,7 +21,7 @@
                     return $scope.pageId;
                 }
                 this.selectGrid = function (id) {
-                    $scope.$parent.validateData('test');
+                    ContainerModels.saveTemplate($scope.pageId, id)
                 }
                 function toogleEditor(predicate) {
                     $scope.editorIsVisible = predicate;

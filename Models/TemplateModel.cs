@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
@@ -199,12 +200,12 @@ namespace appPDU.Models
             }
             _model = model;
         }
-        public Dictionary<string, Guid[]> Moulds
+
+        [BsonIgnore]
+        public IList<Guid> ChildrenIds
         {
-            get
-            {
-                return _metadata.Moulds;
-            }
+            get { return _metadata.ChildrenIds; }
+            set { _metadata.ChildrenIds = value; }
         }
     }
 }

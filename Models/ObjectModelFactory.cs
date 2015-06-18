@@ -34,30 +34,35 @@ namespace appPDU.Models
             };
             var metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata, settings);
             var builder = new WebPageBuilder(model);
-            if (metadata.Template != null && metadata.Template != Guid.Empty)
+            if (metadata.Template != null && metadata.Template != Guid.Empty && (metadata.ChildrenIds == null || metadata.ChildrenIds.Count == 0))
             {
                 var children = await GetNewChildren(model, metadata);
-                foreach (var child in children)
-                {
-                    builder.AddChildren(child);
-                }
+                builder.AddChildren(children);
+
             }
             var finalModel = builder.Build();
             return finalModel;
         }
 
-        private async Task<IList<IObjectModel>> GetNewChildren(IObjectModel model, WebPageMetadata metadata)
+        private async Task<IObjectModel> GetNewChildren(IObjectModel model, WebPageMetadata metadata)
         {
-            var templateModel = await _repository.GetByNameAsync(model.TypeName);
+            var templateModel = await _repository.GetByIdAsync(metadata.Template);
+            templateModel.Id = Guid.NewGuid();
+            templateModel.Type = 4;
+            metadata.ChildrenIds = new List<Guid>();
+            metadata.ChildrenIds.Add(templateModel.Id);
             var template = new TemplateModel(templateModel);
+
             var children = await _repository.GetByIdsAsync(new Guid[] { metadata.Template });
             foreach (var child in children)
             {
                 child.Name = model.Name+"-"+child.Name;
                 child.Id = Guid.NewGuid();
+                template.ChildrenIds.Add(child.Id);
             }
+            children.Add(templateModel);
             await _repository.AddManyAsync(children);
-            return children;
+            return template;
         }
     }
 }

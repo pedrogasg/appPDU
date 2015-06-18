@@ -7,6 +7,6 @@ namespace appPDU.Models
 {
     public class TemplateMetadata
     {
-        public Dictionary<string,Guid[]> Moulds { get; set; }
+        public IList<Guid> ChildrenIds { get; set; }
     }
 }

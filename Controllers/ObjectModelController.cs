@@ -80,7 +80,8 @@ namespace appPDU.Controllers
         [HttpPut]
         public async Task UpdateObjectModel([FromBodyAttribute] ObjectModel model)
         {
-            var updated = await _repository.TryUpdateAsync(model);
+            IObjectModel newModel = await _factory.GetObjectModel(model);
+            var updated = await _repository.TryUpdateAsync(newModel);
             Context.Response.StatusCode = updated ? 200 : 204;
             Context.Response.Headers["Id"] = model.Id.ToString();
             //return new HttpStatusCodeResult(status);

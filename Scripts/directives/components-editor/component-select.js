@@ -15,7 +15,7 @@
                 this.selectType = function (type) {
                     self.type = type;
                     if (type == 'MENU') {
-                        $http.get('/api/webpages').then(function (result) {
+                        $http.get('/api/type/1').then(function (result) {
                             self.links = result.data;
                         })
                     }
