@@ -204,8 +204,8 @@ namespace appPDU.Models
         [BsonIgnore]
         public IList<Guid> ChildrenIds
         {
-            get { return _metadata.ChildrenIds; }
-            set { _metadata.ChildrenIds = value; }
+            get { return _model.ChildrenIds; }
+            set { _model.ChildrenIds = value; }
         }
     }
 }

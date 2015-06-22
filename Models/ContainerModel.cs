@@ -32,7 +32,6 @@ namespace appPDU.Models
             {
                 _metadata = new ContainerMetadata();
                 _metadata.Attributes = new ContainerAttributes();
-                _metadata.ChildrenIds = new List<Guid>();
             }
             _model = model;
             Children = new List<IObjectModel>();
@@ -42,10 +41,6 @@ namespace appPDU.Models
             get { return _metadata.Attributes; }
         }
 
-        public IList<Guid> ChildrenIds
-        {
-            get { return _metadata.ChildrenIds; }
-        }
         public Guid Id
         {
             get { return _model.Id; }
@@ -130,6 +125,19 @@ namespace appPDU.Models
             set
             {
                 _model.TypeName = value;
+            }
+        }
+
+        public IList<Guid> ChildrenIds
+        {
+            get
+            {
+                return _model.ChildrenIds;
+            }
+
+            set
+            {
+                _model.ChildrenIds = value;
             }
         }
     }

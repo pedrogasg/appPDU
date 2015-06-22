@@ -11,11 +11,11 @@ namespace appPDU.Models
     {
         private IObjectModel _model;
         private WebPageMetadata _metadata;
-        [BsonIgnore]
+        [BsonElement("childrenIds")]
         public IList<Guid> ChildrenIds
         {
-            get { return _metadata.ChildrenIds; }
-            set { _metadata.ChildrenIds = value; }
+            get { return _model.ChildrenIds; }
+            set { _model.ChildrenIds = value; }
         }
         public WebPageModel()
         {
@@ -189,7 +189,7 @@ namespace appPDU.Models
             else
             {
                 _metadata = new WebPageMetadata();
-                _metadata.ChildrenIds = new List<Guid>();
+                _model.ChildrenIds = new List<Guid>();
             }
             Children = new List<ObjectModel>();
 

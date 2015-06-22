@@ -8,7 +8,6 @@ namespace appPDU.Models
     public class WebPageMetadata
     {
         public string Description { get; set; }
-        public IList<Guid> ChildrenIds { get; set; }
         public Guid Template { get; set; }
         public ContainerAttributes Attributes { get; set; }
 
