@@ -16,13 +16,17 @@
                         ContainerModels.setChildrenIds(ids);
                         ContainerModels.saveTemplate(function (result, headers) {
                             self.templateId = headers('id');
-                            console.log(self.templateId);
                         });
                     });
                     //$scope.parentCtrl.selectGrid($scope.parentCtrl.gridId);
                     $scope.parentCtrl.hideEditor();
                 };
                 this.close = function () {
+                    self.templateId = null;
+                    var cursor = $scope.cursor;
+                    while (cursor.previousSibling && cursor.previousSibling.className.indexOf('new-container') != -1) {
+                        cursor.parentNode.removeChild(cursor.previousSibling);
+                    }
                     $scope.parentCtrl.hideEditor()
                 }
                 this.expand = function () {

@@ -40,7 +40,7 @@
         */
         function addTemplateToPage(pageId, id) {
             return ObjectModels.get({ id: pageId }).$promise.then(function (page) {
-                var metadata = JSON.parse(parent.metadata);
+                var metadata = JSON.parse(page.metadata);
                 metadata.template = id;
                 page.metadata = JSON.stringify(metadata);
                 return ObjectModels.update(page);
@@ -132,10 +132,14 @@
             return ObjectModels.save(template, callback)
         }
 
-
+        /**
+        * Add Child Ids to the template
+        * @param {Guid[]} ids - The array of ids
+        */
         function setChildrenIds(ids) {
             template.childrenIds = ids;
         }
+
         return {
             createContainer: createContainer,
             deleteContainer: deleteContainer,

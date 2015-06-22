@@ -36,15 +36,13 @@ namespace appPDU.Models
             var builder = new WebPageBuilder(model);
             if (metadata.Template != null && metadata.Template != Guid.Empty && (model.ChildrenIds == null || model.ChildrenIds.Count == 0))
             {
-                var children = await GetNewChildren(model, metadata);
-                builder.AddChildren(children);
-
+                await CreateNewChild(model, metadata);
             }
             var finalModel = builder.Build();
             return finalModel;
         }
 
-        private async Task<IObjectModel> GetNewChildren(IObjectModel model, WebPageMetadata metadata)
+        private async Task CreateNewChild(IObjectModel model, WebPageMetadata metadata)
         {
             var templateModel = await _repository.GetByIdAsync(metadata.Template);
             templateModel.Id = Guid.NewGuid();
@@ -53,7 +51,8 @@ namespace appPDU.Models
             model.ChildrenIds.Add(templateModel.Id);
             var template = new TemplateModel(templateModel);
 
-            var children = await _repository.GetByIdsAsync(new Guid[] { metadata.Template });
+            var children = await _repository.GetByIdsAsync(templateModel.ChildrenIds);
+            templateModel.ChildrenIds = new List<Guid>();
             foreach (var child in children)
             {
                 child.Name = model.Name+"-"+child.Name;
@@ -62,7 +61,6 @@ namespace appPDU.Models
             }
             children.Add(templateModel);
             await _repository.AddManyAsync(children);
-            return template;
         }
     }
 }

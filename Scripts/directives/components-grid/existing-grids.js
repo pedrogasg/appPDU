@@ -12,6 +12,7 @@
                     $scope.parentCtrl.showEditor()
                 };
                 this.selectGrid = function (id) {
+                    console.log(id);
                     $scope.parentCtrl.selectGrid(id);
                 }
                 this.close = function () {
@@ -29,7 +30,6 @@
                         var tempChildren = temp.children;
                         for (var j = 0, child; child = tempChildren[j]; j++) {
                             var meta = JSON.parse(child.metadata);
-                            console.log(meta);
                             children.push({ id: child.id, classes: meta.attributes.classList.join(' ') });
                         }
                         containers.push({ id: temp.id, children: children });
