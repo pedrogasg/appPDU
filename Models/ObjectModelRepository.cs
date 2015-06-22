@@ -54,7 +54,7 @@ namespace appPDU.Models
             var result = await _collection.Find(filter).ToListAsync();
             return result.FirstOrDefault();
         }
-
+        
         public async Task AddAsync(IObjectModel model)
         {
             await _collection.InsertOneAsync(model);

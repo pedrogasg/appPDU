@@ -11,7 +11,7 @@ namespace appPDU.Controllers
     [Route("api/[controller]")]
     public class ObjectModelController : Controller
     {
-        const string ROUTE_BY_ID = "GetByIdRoute";
+        const string ROUTE_BY_ID = "ObjectModelByIdRoute";
 
         private readonly IObjectModelRepository _repository;
         private readonly IObjectModelFactory _factory;
@@ -22,12 +22,12 @@ namespace appPDU.Controllers
             _factory = factory;
         }
 
-        [HttpGetAttribute]
+        [HttpGet]
         public async Task<IEnumerable<IObjectModel>> GetAll()
         {
             return await _repository.AllModelsAsync();
         }
-        [HttpGetAttribute("{id:Guid}", Name = ROUTE_BY_ID)]
+        [HttpGet("{id:Guid}", Name = ROUTE_BY_ID)]
         public async Task<IActionResult> GetById(Guid id)
         {
             var model = await _repository.GetByIdAsync(id);
@@ -37,28 +37,9 @@ namespace appPDU.Controllers
             }
             return new ObjectResult(model);
         }
-        [HttpGet]
-        [Route("/api/templates")]
-        public async Task<IEnumerable<ContainerModel>> GetTemplates()
-        {
-            var models = await _repository.AllModelsByTypeAsync(2);
-            var templates = new List<ContainerModel>(models.Count);
-            foreach (var model in models)
-            {
-                var builder = new ContainerBuilder(model);
-                await builder.RestoreChildren(_repository);
-                templates.Add(builder.Build());
-            }
-            return templates;
-        }
-        [HttpGet]
-        [Route("/api/type/{type:int}")]
-        public async Task<IEnumerable<IObjectModel>> GetByType(int type)
-        {
-            return await _repository.AllModelsByTypeAsync(type);
-        }
-        [HttpPostAttribute]
-        public async Task CreateObjectModel([FromBodyAttribute] ObjectModel model)
+
+        [HttpPost]
+        public async Task CreateObjectModel([FromBody] ObjectModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -78,7 +59,7 @@ namespace appPDU.Controllers
             }
         }
         [HttpPut]
-        public async Task UpdateObjectModel([FromBodyAttribute] ObjectModel model)
+        public async Task UpdateObjectModel([FromBody] ObjectModel model)
         {
             IObjectModel newModel = await _factory.GetObjectModel(model);
             var updated = await _repository.TryUpdateAsync(newModel);
@@ -86,7 +67,7 @@ namespace appPDU.Controllers
             Context.Response.Headers["Id"] = model.Id.ToString();
             //return new HttpStatusCodeResult(status);
         }
-        [HttpDeleteAttribute("{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteObjectModel(Guid id)
         {
 

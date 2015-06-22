@@ -21,7 +21,7 @@
                     return $scope.pageId;
                 }
                 this.selectGrid = function (id) {
-                    ContainerModels.saveTemplate($scope.pageId, id)
+                    ContainerModels.addTemplateToPage($scope.pageId, id)
                 }
                 function toogleEditor(predicate) {
                     $scope.editorIsVisible = predicate;

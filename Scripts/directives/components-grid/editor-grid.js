@@ -8,10 +8,19 @@
             scope: {},
             controller: ['$scope', function ($scope) {
                 var self = this;
-                this.ids = [];
+                this.templateId = null;
                 this.isLarge = false;
                 this.validateGrid = function (id) {
-                    $scope.parentCtrl.selectGrid($scope.parentCtrl.gridId);
+                    ContainerModels.saveTemplateChildren().then(function (result) {
+                        var ids = result.data;
+                        ContainerModels.setChildrenIds(ids);
+                        ContainerModels.saveTemplate(function (result, headers) {
+                            self.templateId = headers('id');
+                            console.log(self.templateId);
+                        });
+                    });
+                    //$scope.parentCtrl.selectGrid($scope.parentCtrl.gridId);
+                    $scope.parentCtrl.hideEditor();
                 };
                 this.close = function () {
                     $scope.parentCtrl.hideEditor()
@@ -30,16 +39,14 @@
                         offset = Number(cursor.dataset.offset),
                         start = Number(cursor.dataset.start),
                         div = document.createElement('div');
-                    ContainerModels.createContainer($scope.parentCtrl.gridId, className,self.ids.length, function (id) {
-                        self.ids.push(id);
-                        div.className = 'new-container ' + className;
-                        div.style.height = cursor.dataset.height + 'px';
-                        cursor.parentNode.insertBefore(div, cursor);
-                        cursor.dataset.start = (size + offset + start) % 12;
-                        cursor.dataset.size = 1;
-                        cursor.dataset.offset = 0;
-                        cursor.className = "col-xs-1 col-xs-offset-0";
-                    });
+                    ContainerModels.createContainer(className);
+                    div.className = 'new-container ' + className;
+                    div.style.height = cursor.dataset.height + 'px';
+                    cursor.parentNode.insertBefore(div, cursor);
+                    cursor.dataset.start = (size + offset + start) % 12;
+                    cursor.dataset.size = 1;
+                    cursor.dataset.offset = 0;
+                    cursor.className = "col-xs-1 col-xs-offset-0";
                 };
                 this.sprout = function () {
                     changeSize(30);
@@ -78,7 +85,7 @@
                 }
                 element.find('.inside-bootstrap-master').on('dragover', function (event) {
                     var e = event.originalEvent;
-                    for (var i = 0,bound; bound = rightBounds[i]; i++) {
+                    for (var i = 0, bound; bound = rightBounds[i]; i++) {
                         if (e.pageX < bound.range) {
                             var size = Number(cursor.dataset.size),
                                 offset = Number(cursor.dataset.offset),

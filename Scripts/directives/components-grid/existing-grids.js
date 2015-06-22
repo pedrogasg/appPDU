@@ -8,17 +8,8 @@
             scope: {},
             controller: ['$scope', function ($scope) {
                 this.addGrid = function () {
-                    ContainerModels.createTemplateContainer(function (data, headers) {
-                        var id = headers('id');
-                        $scope.parentCtrl.gridId = id;
-                        $scope.parentCtrl.showEditor()
-                    });
-                    //ContainerModels.createContainer($scope.parentCtrl.getPageId(),'container', 0, function (id) {
-                    //    $scope.parentCtrl.gridId = id;
-                    //    $scope.parentCtrl.showEditor()
-                    //}, function (childId, parent, metadata) {
-                    //    metadata.template = childId;
-                    //});
+                    ContainerModels.createTemplateContainer()
+                    $scope.parentCtrl.showEditor()
                 };
                 this.selectGrid = function (id) {
                     $scope.parentCtrl.selectGrid(id);
@@ -33,13 +24,13 @@
                 ContainerModels.getTemplates().then(function (result) {
                     var containers = []
                     var temps = result.data;
-                    for (var i = 0,temp; temp = temps[i]; i++) {
-                        var children = [],tempChildren;
+                    for (var i = 0, temp; temp = temps[i]; i++) {
+                        var children = [], tempChildren;
                         var tempChildren = temp.children;
-                        for (var j = 0,child; child = tempChildren[j]; j++) {
+                        for (var j = 0, child; child = tempChildren[j]; j++) {
                             var meta = JSON.parse(child.metadata);
                             console.log(meta);
-                            children.push({ id:child.id,classes: meta.attributes.classList.join(' ') });
+                            children.push({ id: child.id, classes: meta.attributes.classList.join(' ') });
                         }
                         containers.push({ id: temp.id, children: children });
                     }
