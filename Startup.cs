@@ -14,11 +14,11 @@ namespace appPDU
     public class Startup
     {
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
-        public IConfiguration Configuration;
+        public static IConfiguration Configuration { get; set; }
 
         public Startup()
         {
-            Configuration = new Configuration().AddJsonFile("config.json");
+            Configuration = new Configuration().AddJsonFile("config.json").AddEnvironmentVariables();
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -37,7 +37,8 @@ namespace appPDU
                 options.OutputFormatters.Insert(0, jsonOutputFormatter);
             });
             services.Configure<Settings>(Configuration);
-            services.AddSingleton<IObjectModelRepository, ObjectModelRepository>();
+            //services.AddSingleton<IObjectModelRepository, ObjectModelRepository>();
+            services.AddSingleton<IObjectModelRepository, ObjectModelEnityRepository>();
             services.AddSingleton<IObjectModelFactory, ObjectModelFactory>();
         }
 

@@ -1,4 +1,9 @@
 ﻿{
-    "mongoconnection": "mongodb://localhost:27017",
-    "database":  "appPDU"
+  "mongoconnection": "mongodb://localhost:27017",
+  "database": "appPDU",
+  "Data": {
+    "DefaultConnection": {
+      "Connectionstring": "Data Source=.\\sqlexpress;Initial Catalog=appPDU;Integrated Security=True;"
+    }
+  }
 }

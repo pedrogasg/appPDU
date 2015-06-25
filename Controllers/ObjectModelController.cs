@@ -44,6 +44,7 @@ namespace appPDU.Controllers
             if (!ModelState.IsValid)
             {
                 Context.Response.StatusCode = 400;
+                //return new BadRequestResult();
             }
             else
             {
@@ -56,6 +57,7 @@ namespace appPDU.Controllers
                 Context.Response.StatusCode = 201;
                 Context.Response.Headers["Id"] = newModel.Id.ToString();
                 Context.Response.Headers["Location"] = url;
+                //return new CreatedResult(url, newModel);
             }
         }
         [HttpPut]
