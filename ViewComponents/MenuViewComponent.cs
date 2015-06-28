@@ -8,9 +8,9 @@ namespace appPDU.ViewComponents
 {
     public class MenuViewComponent : ViewComponent
     {
-        private readonly IObjectModelRepository _repository;
+        private readonly IObjectModelRepository<IObjectModel> _repository;
         private MenuModel _model;
-        public MenuViewComponent(IObjectModelRepository repository)
+        public MenuViewComponent(IObjectModelRepository<IObjectModel> repository)
         {
             _repository = repository;
         }

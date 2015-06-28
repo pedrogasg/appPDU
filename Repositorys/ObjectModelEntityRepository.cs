@@ -1,48 +1,88 @@
-﻿using System;
+﻿using appPDU.DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace appPDU.Models
 {
-    public class ObjectModelEnityRepository : IObjectModelRepository
+    public class ObjectModelEnityRepository:IObjectModelRepository<IObjectModel>
     {
-        public Task AddAsync(IObjectModel model)
+        private readonly ObjectModelDbContext _dbContext;
+        public ObjectModelEnityRepository(ObjectModelDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+        }
+        public async Task AddAsync(IObjectModel model)
+        {
+            _dbContext.Add(model);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task AddManyAsync(IList<IObjectModel> models)
+        public async Task AddManyAsync(IList<IObjectModel> models)
         {
-            throw new NotImplementedException();
+            foreach (var model in models)
+            {
+                _dbContext.Add(model);
+
+            }
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<List<IObjectModel>> AllModelsAsync()
+        public async Task<List<IObjectModel>> AllModelsAsync(Expression<Func<IObjectModel, bool>> filter = null,
+            Func<IQueryable<IObjectModel>, IOrderedQueryable<IObjectModel>> orderBy = null,bool includeData = false)
         {
-            return null;
+            IQueryable<IObjectModel> models = _dbContext.ObjectModels;
+            if(filter != null)
+            {
+                models = models.Where(filter);
+            }
+
+            models.Include(o=>o.Id);
+            models.Include(o => o.Name);
+            models.Include(o => o.Title);
+            models.Include(o => o.Metadata);
+            models.Include(o => o.DateCreate);
+            models.Include(o => o.Type);
+            models.Include(o => o.TypeName);
+            models.Include(o => o.Order);
+
+            if (includeData)
+            {
+                models.Include(o => o.Data);
+            }
+
+            if (orderBy != null)
+            {
+                models = orderBy(models);
+            }
+            return await models.ToListAsync<IObjectModel>();
         }
 
-        public Task<List<IObjectModel>> AllModelsByTypeAsync(int type)
+        public async Task<List<IObjectModel>> AllModelsByTypeAsync(int type)
         {
-            return null;
+            return  await _dbContext.ObjectModels.Where(o => o.Type == type).ToListAsync<IObjectModel>();
         }
 
-        public Task<IObjectModel> GetByIdAsync(Guid id)
+        public async Task<IObjectModel> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.ObjectModels.SingleAsync(o => o.Id == id);
         }
 
-        public Task<IList<IObjectModel>> GetByIdsAsync(IList<Guid> ids)
+        public async Task<IList<IObjectModel>> GetByIdsAsync(IList<Guid> ids)
         {
-            throw new NotImplementedException();
+            return await _dbContext.ObjectModels.Where(o => ids.Contains(o.Id)).ToListAsync<IObjectModel>();
         }
 
-        public Task<IObjectModel> GetByNameAsync(string name)
+        public async Task<IObjectModel> GetByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await _dbContext.ObjectModels.SingleAsync(o => o.Name == name);
         }
 
         public Task<bool> TryDeleteAsync(Guid Id)
         {
+             //_dbContext.ObjectModels.Remove()
             throw new NotImplementedException();
         }
 

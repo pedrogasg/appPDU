@@ -120,7 +120,7 @@ namespace appPDU.Models
             }
         }
 
-        public Guid ParentId
+        public Guid? ParentId
         {
             get
             {
@@ -201,11 +201,29 @@ namespace appPDU.Models
             _model = model;
         }
 
+        public IObjectModel GetPlainModel()
+        {
+            return _model.GetPlainModel();
+        }
+
         [BsonIgnore]
         public IList<Guid> ChildrenIds
         {
             get { return _model.ChildrenIds; }
             set { _model.ChildrenIds = value; }
+        }
+
+        public int Version
+        {
+            get
+            {
+                return _model.Version;
+            }
+
+            set
+            {
+                _model.Version = value;
+            }
         }
     }
 }

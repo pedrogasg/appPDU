@@ -32,7 +32,7 @@ namespace appPDU.Builders
     class ContainerBuilder : ContainerBuilder<ContainerBuilder, ContainerModel, IObjectModel>
     {
         public ContainerBuilder(IObjectModel obj) : base(obj) { }
-        internal async Task RestoreChildren(IObjectModelRepository repo)
+        internal async Task RestoreChildren(IObjectModelRepository<IObjectModel> repo)
         {
             foreach (var childId in _objectModel.ChildrenIds)
             {

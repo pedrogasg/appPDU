@@ -13,10 +13,10 @@ namespace appPDU.Controllers
     {
         const string ROUTE_BY_ID = "ObjectModelByIdRoute";
 
-        private readonly IObjectModelRepository _repository;
+        private readonly IObjectModelRepository<IObjectModel> _repository;
         private readonly IObjectModelFactory _factory;
 
-        public ObjectModelController(IObjectModelRepository repository, IObjectModelFactory factory)
+        public ObjectModelController(IObjectModelRepository<IObjectModel> repository, IObjectModelFactory factory)
         {
             _repository = repository;
             _factory = factory;
@@ -49,9 +49,10 @@ namespace appPDU.Controllers
             else
             {
                 model.Id = Guid.NewGuid();
-                model.DateCreate = DateTime.Now;
+                model.Visible = true;
+                model.Version = 1;
                 IObjectModel newModel = await _factory.GetObjectModel(model);
-                await _repository.AddAsync(newModel);
+                await _repository.AddAsync(newModel.GetPlainModel());
 
                 var url = Url.RouteUrl(ROUTE_BY_ID, new { id = newModel.Id });
                 Context.Response.StatusCode = 201;

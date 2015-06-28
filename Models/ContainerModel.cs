@@ -36,6 +36,12 @@ namespace appPDU.Models
             _model = model;
             Children = new List<IObjectModel>();
         }
+
+        public IObjectModel GetPlainModel()
+        {
+            return _model.GetPlainModel();
+        }
+
         public ContainerAttributes Attributes
         {
             get { return _metadata.Attributes; }
@@ -47,7 +53,7 @@ namespace appPDU.Models
             set { _model.Id = value; }
         }
 
-        public Guid ParentId
+        public Guid? ParentId
         {
             get { return _model.ParentId; }
             set { _model.ParentId = value; }
@@ -138,6 +144,19 @@ namespace appPDU.Models
             set
             {
                 _model.ChildrenIds = value;
+            }
+        }
+
+        public int Version
+        {
+            get
+            {
+                return _model.Version;
+            }
+
+            set
+            {
+                _model.Version = value;
             }
         }
     }

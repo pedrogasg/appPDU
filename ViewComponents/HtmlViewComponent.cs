@@ -8,9 +8,9 @@ namespace appPDU.ViewComponents
 {
     public class HtmlViewComponent : ViewComponent
     {
-        private readonly IObjectModelRepository _repository;
+        private readonly IObjectModelRepository<IObjectModel> _repository;
         private HtmlModel _model;
-        public HtmlViewComponent(IObjectModelRepository repository)
+        public HtmlViewComponent(IObjectModelRepository<IObjectModel> repository)
         {
             _repository = repository;
         }

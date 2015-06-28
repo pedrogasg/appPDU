@@ -8,10 +8,11 @@ using MongoDB.Bson;
 using MongoDB.Driver.Builders;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using System.Linq.Expressions;
 
 namespace appPDU.Models
 {
-    public class ObjectModelRepository : IObjectModelRepository
+    public class ObjectModelRepository : IObjectModelRepository<IObjectModel>
     {
         readonly List<ObjectModel> _models = new List<ObjectModel>();
         private readonly Settings _settings;
@@ -88,6 +89,11 @@ namespace appPDU.Models
             var filter = Builders<IObjectModel>.Filter.Eq(e => e.Type, type);
             return await _collection.Find(filter).ToListAsync();
 
+        }
+
+        public Task<List<IObjectModel>> AllModelsAsync(Expression<Func<IObjectModel, bool>> filter, Func<IQueryable<IObjectModel>, IOrderedQueryable<IObjectModel>> orderBy, bool includeDefaults)
+        {
+            throw new NotImplementedException();
         }
     }
 }

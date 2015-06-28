@@ -32,7 +32,7 @@ namespace appPDU.Models
             set { _model.Id = value; }
         }
         [BsonElement("parentId")]
-        public Guid ParentId
+        public Guid? ParentId
         {
             get { return _model.ParentId; }
             set { _model.ParentId = value; }
@@ -174,6 +174,19 @@ namespace appPDU.Models
             }
         }
 
+        public int Version
+        {
+            get
+            {
+                return _model.Version;
+            }
+
+            set
+            {
+                _model.Version = value;
+            }
+        }
+
         public void AddInternalObject(IObjectModel model)
         {
             var settings = new JsonSerializerSettings()
@@ -196,6 +209,10 @@ namespace appPDU.Models
             _model = model;
         }
 
+        public IObjectModel GetPlainModel()
+        {
+            return _model.GetPlainModel();
+        }
     }
 
 }

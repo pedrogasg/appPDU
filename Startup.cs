@@ -2,12 +2,14 @@
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.DependencyInjection;
+using Microsoft.Data.Entity;
 using System.Linq;
 
 using appPDU.Models;
 using Microsoft.AspNet.Mvc.Xml;
 using Microsoft.Framework.ConfigurationModel;
 using Newtonsoft.Json.Serialization;
+using appPDU.DataLayer;
 
 namespace appPDU
 {
@@ -23,8 +25,11 @@ namespace appPDU
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
+            services
+                .AddMvc()
+                .AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<ObjectModelDbContext>();
             services.Configure<MvcOptions>(options =>
             {
                 options.OutputFormatters.ToList().RemoveAll(formatter => formatter.Instance is XmlDataContractSerializerOutputFormatter || formatter.Instance is JsonOutputFormatter);
@@ -38,7 +43,7 @@ namespace appPDU
             });
             services.Configure<Settings>(Configuration);
             //services.AddSingleton<IObjectModelRepository, ObjectModelRepository>();
-            services.AddSingleton<IObjectModelRepository, ObjectModelEnityRepository>();
+            services.AddSingleton<IObjectModelRepository<IObjectModel>, ObjectModelEnityRepository>();
             services.AddSingleton<IObjectModelFactory, ObjectModelFactory>();
         }
 

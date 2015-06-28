@@ -10,9 +10,9 @@ namespace appPDU.Controllers
     [Route("/[controller]"), Route("/")]
     public class HomeController : Controller
     {
-        private readonly IObjectModelRepository _repository;
+        private readonly IObjectModelRepository<IObjectModel> _repository;
 
-        public HomeController(IObjectModelRepository repository)
+        public HomeController(IObjectModelRepository<IObjectModel> repository)
         {
             _repository = repository;
         }

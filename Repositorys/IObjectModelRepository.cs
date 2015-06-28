@@ -1,19 +1,22 @@
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace appPDU.Models
 {
-	public interface IObjectModelRepository
+	public interface IObjectModelRepository<TObjectModel> where TObjectModel : class, IObjectModel
 	{
-        Task<List<IObjectModel>> AllModelsAsync();
-        Task<List<IObjectModel>> AllModelsByTypeAsync(int type);
-        Task AddAsync(IObjectModel model);
-        Task AddManyAsync(IList<IObjectModel> models);
-        Task<IObjectModel> GetByIdAsync(Guid id);
-		Task<IList<IObjectModel>> GetByIdsAsync(IList<Guid> ids);
-		Task<IObjectModel> GetByNameAsync(string name);
-        Task<bool> TryUpdateAsync(IObjectModel model);
+        Task<List<TObjectModel>> AllModelsAsync(Expression<Func<TObjectModel, bool>> filter = null,
+            Func<IQueryable<TObjectModel>, IOrderedQueryable<TObjectModel>> orderBy = null, bool includeData = false);
+        Task<List<TObjectModel>> AllModelsByTypeAsync(int type);
+        Task AddAsync(TObjectModel model);
+        Task AddManyAsync(IList<TObjectModel> models);
+        Task<TObjectModel> GetByIdAsync(Guid id);
+		Task<IList<TObjectModel>> GetByIdsAsync(IList<Guid> ids);
+		Task<TObjectModel> GetByNameAsync(string name);
+        Task<bool> TryUpdateAsync(TObjectModel model);
         Task<bool> TryDeleteAsync(Guid Id);
     }
 }

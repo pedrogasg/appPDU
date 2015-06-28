@@ -9,8 +9,8 @@ namespace appPDU.ViewComponents
 	public class ContainerViewComponent:ViewComponent
 	{
 		private ContainerModel _model;
-		private readonly IObjectModelRepository _repository;
-		public ContainerViewComponent(IObjectModelRepository repository)
+		private readonly IObjectModelRepository<IObjectModel> _repository;
+		public ContainerViewComponent(IObjectModelRepository<IObjectModel> repository)
 		{
 			_repository = repository;	
 		}

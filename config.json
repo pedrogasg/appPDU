@@ -3,7 +3,7 @@
   "database": "appPDU",
   "Data": {
     "DefaultConnection": {
-      "Connectionstring": "Data Source=.\\sqlexpress;Initial Catalog=appPDU;Integrated Security=True;"
+        "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=PdUModel;Trusted_Connection=True;MultipleActiveResultSets=true"
     }
   }
 }

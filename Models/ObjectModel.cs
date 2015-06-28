@@ -8,10 +8,15 @@ namespace appPDU.Models
     {
         public void AddInternalObject(IObjectModel model) { }
 
+        public IObjectModel GetPlainModel()
+        {
+            return this;
+        }
+
         [BsonElement("id")]
         public Guid Id { get; set; }
         [BsonElement("parentId")]
-        public Guid ParentId { get; set; }
+        public Guid? ParentId { get; set; }
         [BsonElement("title")]
         public string Title { get; set; }
         [BsonElement("name")]
@@ -37,6 +42,7 @@ namespace appPDU.Models
         public DateTime DateClose { get; set; }
         [BsonElement("visible")]
         public bool Visible { get; set; }
+        public int Version { get; set; }
         [BsonElement("childrenIds")]
         public IList<Guid> ChildrenIds { get; set; }
     }

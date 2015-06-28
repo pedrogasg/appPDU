@@ -14,11 +14,11 @@ namespace appPDU.Controllers
     [Route("api/[controller]")]
     public class ObjectModelsController : Controller
     {
-        private readonly IObjectModelRepository _repository;
+        private readonly IObjectModelRepository<IObjectModel> _repository;
         private readonly IObjectModelFactory _factory;
         const string ROUTE_NAME = "ObjectModelResourceRoute";
 
-        public ObjectModelsController(IObjectModelRepository repository, IObjectModelFactory factory)
+        public ObjectModelsController(IObjectModelRepository<IObjectModel> repository, IObjectModelFactory factory)
         {
             _repository = repository;
             _factory = factory;

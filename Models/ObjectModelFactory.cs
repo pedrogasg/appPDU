@@ -9,8 +9,8 @@ namespace appPDU.Models
 {
     public class ObjectModelFactory : IObjectModelFactory
     {
-        private readonly IObjectModelRepository _repository;
-        public ObjectModelFactory(IObjectModelRepository repository)
+        private readonly IObjectModelRepository<IObjectModel> _repository;
+        public ObjectModelFactory(IObjectModelRepository<IObjectModel> repository)
         {
             _repository = repository;
         }
