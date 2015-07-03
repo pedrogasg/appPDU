@@ -46,6 +46,7 @@ namespace appPDU.Models
             var templateModel = await _repository.GetByIdAsync(metadata.Template);
             templateModel.Id = Guid.NewGuid();
             templateModel.Type = 4;
+            templateModel.Name = model.Name+"-Template";
             model.ChildrenIds = new List<Guid>();
             model.ChildrenIds.Add(templateModel.Id);
             var template = new TemplateModel(templateModel);

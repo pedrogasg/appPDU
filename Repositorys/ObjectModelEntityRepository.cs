@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.Data.Entity;
 
 namespace appPDU.Models
 {
-    public class ObjectModelEnityRepository:IObjectModelRepository<IObjectModel>
+    public class ObjectModelEntityRepository:IObjectModelRepository<IObjectModel>
     {
         private readonly ObjectModelDbContext _dbContext;
-        public ObjectModelEnityRepository(ObjectModelDbContext dbContext)
+        public ObjectModelEntityRepository(ObjectModelDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -39,7 +40,7 @@ namespace appPDU.Models
                 models = models.Where(filter);
             }
 
-            models.Include(o=>o.Id);
+            models.Include(o => o.Id);
             models.Include(o => o.Name);
             models.Include(o => o.Title);
             models.Include(o => o.Metadata);

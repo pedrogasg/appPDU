@@ -3,19 +3,18 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    "Microsoft.AspNet.Server.IIS": "1.0.0-beta4",
-    "Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
-    "Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
-    "Microsoft.AspNet.Mvc": "6.0.0-beta4",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
-    "Newtonsoft.Json": "6.0.1-*",
-    "Kestrel": "1.0.0-beta4",
-    "Microsoft.AspNet.Mvc.Xml": "6.0.0-beta4",
-    "EntityFramework": "7.0.0-beta4",
-    "EntityFramework.Commands": "7.0.0-beta4",
-    "EntityFramework.SqlServer": "7.0.0-beta4",
-    "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
-    "mongocsharpdriver": "2.0.0-beta4"
+    "EntityFramework": "7.0.0-*",
+    "EntityFramework.Commands": "7.0.0-*",
+    "EntityFramework.SqlServer": "7.0.0-*",
+    "Kestrel": "1.0.0-*",
+    "Microsoft.AspNet.Diagnostics": "1.0.0-*",
+    "Microsoft.AspNet.Mvc": "6.0.0-*",
+    "Microsoft.AspNet.Mvc.Xml": "6.0.0-*",
+    "Microsoft.AspNet.Server.IIS": "1.0.0-*",
+    "Microsoft.AspNet.Server.WebListener": "1.0.0-*",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-*",
+    "mongocsharpdriver": "2.0.0-beta4",
+    "Newtonsoft.Json": "6.0.1-*"
   },
 
   "commands": {
@@ -29,10 +28,16 @@
   },
 
   "frameworks": {
-    "dnx451": { }
+    "dnx451": {
+      "dependencies": {
+        "Microsoft.Framework.Configuration.Json": "1.0.0-*"
+      }
+    }
   },
-
-  "publishExclude": [
+  "compilationOptions": {
+    "warningsAsErrors": true
+  },
+  "packExclude": [
     "node_modules",
     "bower_components",
     "**.xproj",

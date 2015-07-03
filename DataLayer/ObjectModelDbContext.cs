@@ -1,5 +1,7 @@
 ﻿using appPDU.Models;
+using JetBrains.Annotations;
 using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.ChangeTracking;
 
 namespace appPDU.DataLayer
 {
@@ -11,8 +13,7 @@ namespace appPDU.DataLayer
         {
 
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnConfiguring(EntityOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(Startup.Configuration.Get("Data:DefaultConnection:ConnectionString"));
@@ -23,19 +24,23 @@ namespace appPDU.DataLayer
             base.OnModelCreating(modelBuilder);
 
             var objectModelBuilder = modelBuilder.Entity<ObjectModel>();
+
             objectModelBuilder
                 .Key(o => o.Id);
+
             objectModelBuilder
                 .Index(o => o.Name)
                 .Unique();
+
             objectModelBuilder
                 .Index(o => new { o.ParentId, o.Version });
+
             objectModelBuilder
-                .ForSqlServer()
                 .Table("ObjectModel");
+
             objectModelBuilder
                 .Property(o => o.Id)
-                .GenerateValueOnAdd()
+                .DefaultExpression("NEWSEQUENTIALID()")
                 .Required();
 
             objectModelBuilder
@@ -63,28 +68,28 @@ namespace appPDU.DataLayer
             objectModelBuilder
                 .Property(o => o.DateCreate)
                 .Required()
-                .ForSqlServer()
-                .DefaultExpression("GetDate()")
+                .DefaultExpression("GETDATE()")
                 .ColumnType("datetime2");
 
             objectModelBuilder
                 .Property(o => o.Version)
-                .Required().ForSqlServer().ComputedExpression("GetCurrentVersion(ParentId)");
+                .Required()
+                .DefaultValue(1);
 
             objectModelBuilder
                 .Property(o => o.Visible)
                 .Required()
-                .UseStoreDefault();
+                .DefaultValue(true);
 
             objectModelBuilder
                 .Property(o => o.Metadata)
-                .ForSqlServer()
                 .ColumnType("varchar(2048)");
 
             objectModelBuilder
                 .Property(o => o.Data)
-                .ForSqlServer()
                 .ColumnType("varchar(max)");
+
+            objectModelBuilder.Collection<ObjectModel>();
 
         }
     }
