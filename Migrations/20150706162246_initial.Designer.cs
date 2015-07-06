@@ -11,7 +11,7 @@ namespace appPDU.Migrations
     {
         public override string Id
         {
-            get { return "20150703140639_initial"; }
+            get { return "20150706162246_initial"; }
         }
         
         public override string ProductVersion
@@ -25,6 +25,15 @@ namespace appPDU.Migrations
                 .Annotation("SqlServer:DefaultSequenceName", "DefaultSequence")
                 .Annotation("SqlServer:Sequence:.DefaultSequence", "'DefaultSequence', '', '1', '10', '', '', 'Int64', 'False'")
                 .Annotation("SqlServer:ValueGeneration", "Sequence");
+            
+            builder.Entity("appPDU.Models.AdjacencyModel", b =>
+                {
+                    b.Property<Guid>("PredecessorId");
+                    
+                    b.Property<Guid>("SuccessorId");
+                    
+                    b.Key("PredecessorId", "SuccessorId");
+                });
             
             builder.Entity("appPDU.Models.ObjectModel", b =>
                 {
@@ -49,8 +58,6 @@ namespace appPDU.Migrations
                     b.Property<string>("Name")
                         .Required()
                         .Annotation("MaxLength", 256);
-                    
-                    b.Property<Guid?>("ObjectModelId");
                     
                     b.Property<int>("Order");
                     
@@ -83,11 +90,15 @@ namespace appPDU.Migrations
                     b.Annotation("Relational:TableName", "ObjectModel");
                 });
             
-            builder.Entity("appPDU.Models.ObjectModel", b =>
+            builder.Entity("appPDU.Models.AdjacencyModel", b =>
                 {
                     b.Reference("appPDU.Models.ObjectModel")
                         .InverseCollection()
-                        .ForeignKey("ObjectModelId");
+                        .ForeignKey("PredecessorId");
+                    
+                    b.Reference("appPDU.Models.ObjectModel")
+                        .InverseCollection()
+                        .ForeignKey("SuccessorId");
                 });
         }
     }

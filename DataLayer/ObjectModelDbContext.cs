@@ -89,8 +89,23 @@ namespace appPDU.DataLayer
                 .Property(o => o.Data)
                 .ColumnType("varchar(max)");
 
-            objectModelBuilder.Collection<ObjectModel>();
+            var adjacencyModelBuilder = modelBuilder.Entity<AdjacencyModel>();
+            adjacencyModelBuilder
+                .Key(c => new { c.PredecessorId, c.SuccessorId });
+
+            adjacencyModelBuilder
+                .Reference(o => o.Predecessor)
+                .InverseCollection(o => o.Predecessors)
+                .ForeignKey(o => o.PredecessorId);
+
+            adjacencyModelBuilder
+                .Reference(o => o.Successor)
+                .InverseCollection(o => o.Successors)
+                .ForeignKey(o => o.SuccessorId);
+
+
 
         }
     }
 }
+ 

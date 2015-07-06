@@ -32,24 +32,29 @@ namespace appPDU.Migrations
                     Order = table.Column(type: "int", nullable: false),
                     Version = table.Column(type: "int", nullable: false, defaultValue: 1),
                     Visible = table.Column(type: "bit", nullable: false, defaultValue: true)
-                });
-            migration.CreateTable(
-                name: "ObjectModel_Relations",
-                columns: table => new
-                {
-                    ParentId = table.Column(type: "uniqueidentifier", nullable: false),
-                    ChildId = table.Column(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_ObjectModel", x => x.Id);
+                });
+            migration.CreateTable(
+                name: "AdjacencyModel",
+                columns: table => new
+                {
+                    PredecessorId = table.Column(type: "uniqueidentifier", nullable: false),
+                    SuccessorId = table.Column(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdjacencyModel", x => new { x.PredecessorId, x.SuccessorId });
                     table.ForeignKey(
-                        name: "FK_Parent_ObjectModel_Id",
-                        columns: x => x.ParentId,
+                        name: "FK_AdjacencyModel_ObjectModel_PredecessorId",
+                        columns: x => x.PredecessorId,
                         referencedTable: "ObjectModel",
                         referencedColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Child_ObjectModel_Id",
-                        columns: x => x.ChildId,
+                        name: "FK_AdjacencyModel_ObjectModel_SuccessorId",
+                        columns: x => x.SuccessorId,
                         referencedTable: "ObjectModel",
                         referencedColumn: "Id");
                 });
@@ -63,10 +68,11 @@ namespace appPDU.Migrations
                 table: "ObjectModel",
                 columns: new[] { "ParentId", "Version" });
         }
-
+        
         public override void Down(MigrationBuilder migration)
         {
             migration.DropSequence("DefaultSequence");
+            migration.DropTable("AdjacencyModel");
             migration.DropTable("ObjectModel");
         }
     }
