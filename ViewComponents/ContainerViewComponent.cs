@@ -18,19 +18,14 @@ namespace appPDU.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(IObjectModel model)
 		{
             var builder = new ContainerBuilder(model);
-			_model = builder.Build();
-            if(_model.ChildrenIds.Count > 0)
-            {
-                _model.Children = await _repository.GetByIdsAsync(_model.ChildrenIds);
-            }
+			_model = await builder.AsyncBuild();
             var defaultView = "Default";
 			return View(defaultView, _model);
 		}
         public async Task<IViewComponentResult> InvokeAsync(IObjectModel model, string view)
         {
             var builder = new ContainerBuilder(model);
-            _model = builder.Build();
-            _model.Children = await _repository.GetByIdsAsync(_model.ChildrenIds);
+            _model = await builder.AsyncBuild();
             return View(view, _model);
         }
     }

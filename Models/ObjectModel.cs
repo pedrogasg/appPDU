@@ -45,8 +45,8 @@ namespace appPDU.Models
         public int Version { get; set; }
         [BsonElement("childrenIds")]
         public IList<Guid> ChildrenIds { get; set; }
-        public IEnumerable<AdjacencyModel> Predecessors { get; set; }
-        public IEnumerable<AdjacencyModel> Successors { get; set; }
+        public ICollection<AdjacencyModel> Predecessors { get; set; }
+        public ICollection<AdjacencyModel> Successors { get; set; }
     }
 
 }

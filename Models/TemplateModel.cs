@@ -206,13 +206,6 @@ namespace appPDU.Models
             return _model.GetPlainModel();
         }
 
-        [BsonIgnore]
-        public IList<Guid> ChildrenIds
-        {
-            get { return _model.ChildrenIds; }
-            set { _model.ChildrenIds = value; }
-        }
-
         public int Version
         {
             get
@@ -223,6 +216,32 @@ namespace appPDU.Models
             set
             {
                 _model.Version = value;
+            }
+        }
+
+        public ICollection<AdjacencyModel> Predecessors
+        {
+            get
+            {
+                return _model.Predecessors;
+            }
+
+            set
+            {
+                _model.Predecessors = value;
+            }
+        }
+
+        public ICollection<AdjacencyModel> Successors
+        {
+            get
+            {
+                return _model.Successors;
+            }
+
+            set
+            {
+                _model.Successors = value;
             }
         }
     }

@@ -9,19 +9,9 @@ namespace appPDU.Builders
     class WebPageBuilder<TBuilder, TOutput, TInput> : ObjectBuilder<TBuilder, TOutput, TInput>
     where TBuilder : WebPageBuilder<TBuilder, TOutput, TInput>
     where TOutput : WebPageModel, new()
-    where TInput : IObjectModel
+    where TInput : class,IObjectModel
     {
         public WebPageBuilder(TInput obj) : base(obj) { }
-
-        public TBuilder AddChildren(TInput child)
-        {
-            if(_objectModel.ChildrenIds == null)
-            {
-                _objectModel.ChildrenIds = new List<Guid>();
-            }
-            _objectModel.ChildrenIds.Add(child.Id);
-            return _this;
-        }
 
     }
     class WebPageBuilder : WebPageBuilder<WebPageBuilder, WebPageModel, IObjectModel>

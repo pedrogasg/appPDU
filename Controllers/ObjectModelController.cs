@@ -39,36 +39,35 @@ namespace appPDU.Controllers
         }
 
         [HttpPost]
-        public async Task CreateObjectModel([FromBody] ObjectModel model)
+        public async Task<IActionResult> CreateObjectModel([FromBody] ObjectModel model)
         {
             if (!ModelState.IsValid)
             {
-                Context.Response.StatusCode = 400;
-                //return new BadRequestResult();
+                return new BadRequestResult();
             }
             else
             {
-                model.Id = Guid.NewGuid();
                 model.Visible = true;
                 model.Version = 1;
                 IObjectModel newModel = await _factory.GetObjectModel(model);
                 await _repository.AddAsync(newModel.GetPlainModel());
 
                 var url = Url.RouteUrl(ROUTE_BY_ID, new { id = newModel.Id });
-                Context.Response.StatusCode = 201;
                 Context.Response.Headers["Id"] = newModel.Id.ToString();
-                Context.Response.Headers["Location"] = url;
-                //return new CreatedResult(url, newModel);
+                return new CreatedResult(url, newModel);
             }
         }
         [HttpPut]
-        public async Task UpdateObjectModel([FromBody] ObjectModel model)
+        public async Task<IActionResult> UpdateObjectModel([FromBody] ObjectModel model)
         {
             IObjectModel newModel = await _factory.GetObjectModel(model);
             var updated = await _repository.TryUpdateAsync(newModel);
-            Context.Response.StatusCode = updated ? 200 : 204;
+            var status = updated ? 200 : 204;
             Context.Response.Headers["Id"] = model.Id.ToString();
-            //return new HttpStatusCodeResult(status);
+            return new ObjectResult(newModel)
+            {
+                StatusCode = status
+            };
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteObjectModel(Guid id)

@@ -10,7 +10,6 @@ namespace appPDU.Models
         void AddInternalObject(IObjectModel objectModel);
         Guid Id { get; set; }
         Guid? ParentId { get; set; }
-        IList<Guid> ChildrenIds { get; set; }
         string Title { get; set; }
         string Name { get; set; }
         int Type { get; set; }
@@ -24,6 +23,9 @@ namespace appPDU.Models
         bool Visible { get; set; }
         int Version { get; set; }
         IObjectModel GetPlainModel();
+
+        ICollection<AdjacencyModel> Predecessors { get; set; }
+        ICollection<AdjacencyModel> Successors { get; set; }
 
     }
 }

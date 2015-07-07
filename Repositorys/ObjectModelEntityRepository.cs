@@ -11,9 +11,11 @@ namespace appPDU.Models
     public class ObjectModelEntityRepository:IObjectModelRepository<IObjectModel>
     {
         private readonly ObjectModelDbContext _dbContext;
+        private readonly IQueryable<IObjectModel> _models;
         public ObjectModelEntityRepository(ObjectModelDbContext dbContext)
         {
             _dbContext = dbContext;
+            _models = dbContext.ObjectModels;
         }
         public async Task AddAsync(IObjectModel model)
         {

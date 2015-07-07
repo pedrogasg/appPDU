@@ -7,23 +7,11 @@ namespace appPDU.Builders
     class ContainerBuilder<TBuilder, TOutput, TInput> : ObjectBuilder<TBuilder, TOutput, TInput>
     where TBuilder : ContainerBuilder<TBuilder, TOutput, TInput>
     where TOutput : ContainerModel, new()
-    where TInput : IObjectModel
+    where TInput : class,IObjectModel
     {
         public ContainerBuilder(TInput obj) : base(obj) { }
 
-        public TBuilder AddChildren(Guid id)
-        {
-            _objectModel.ChildrenIds.Add(id);
-            return _this;
-        }
-
-        public TBuilder AddChildren(TInput child)
-        {
-            _objectModel.ChildrenIds.Add(child.Id);
-            return _this;
-        }
-
-        public TBuilder AddCkass(string className)
+        public TBuilder AddClass(string className)
         {
             _objectModel.Attributes.ClassList.Add(className);
             return _this;
@@ -34,9 +22,9 @@ namespace appPDU.Builders
         public ContainerBuilder(IObjectModel obj) : base(obj) { }
         internal async Task RestoreChildren(IObjectModelRepository<IObjectModel> repo)
         {
-            foreach (var childId in _objectModel.ChildrenIds)
+            foreach (var successor in _objectModel.Successors)
             {
-                _objectModel.Children.Add(await repo.GetByIdAsync(childId));
+                _objectModel.Children.Add(await repo.GetByIdAsync(successor.SuccessorId));
             }
         }
     }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using appPDU.Builders;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Linq;
 
 namespace appPDU.Models
 {
@@ -33,7 +34,7 @@ namespace appPDU.Models
             };
             var metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata, settings);
             var builder = new WebPageBuilder(model);
-            if (metadata.Template != null && metadata.Template != Guid.Empty && (model.ChildrenIds == null || model.ChildrenIds.Count == 0))
+            if (metadata.Template != null && metadata.Template != Guid.Empty && (model.Successors.Count == 0))
             {
                 await CreateNewChild(model, metadata);
             }
@@ -44,23 +45,16 @@ namespace appPDU.Models
         private async Task CreateNewChild(IObjectModel model, WebPageMetadata metadata)
         {
             var templateModel = await _repository.GetByIdAsync(metadata.Template);
-            templateModel.Id = Guid.NewGuid();
             templateModel.Type = 4;
             templateModel.Name = model.Name+"-Template";
-            model.ChildrenIds = new List<Guid>();
-            model.ChildrenIds.Add(templateModel.Id);
             var template = new TemplateModel(templateModel);
 
-            var children = await _repository.GetByIdsAsync(templateModel.ChildrenIds);
-            templateModel.ChildrenIds = new List<Guid>();
-            foreach (var child in children)
+            var successors = template.Successors;
+            foreach (var successor in successors)
             {
-                child.Name = model.Name+"-"+child.Name;
-                child.Id = Guid.NewGuid();
-                template.ChildrenIds.Add(child.Id);
+                successor.Successor.Name = model.Name+"-"+ successor.Successor.Name;
             }
-            children.Add(templateModel);
-            await _repository.AddManyAsync(children);
+            await _repository.AddManyAsync(successors.Select(s=>s.Successor as IObjectModel).ToList());
         }
     }
 }

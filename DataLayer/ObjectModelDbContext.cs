@@ -9,10 +9,6 @@ namespace appPDU.DataLayer
     {
         public DbSet<ObjectModel> ObjectModels { get; set; }
 
-        public ObjectModelDbContext() : base()
-        {
-
-        }
         protected override void OnConfiguring(EntityOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

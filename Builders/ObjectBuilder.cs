@@ -6,7 +6,7 @@ namespace appPDU.Builders
 	class ObjectBuilder<TBuilder,TOutput,TInput>:ObjectBuilderBase<TBuilder,TOutput,TInput>
 		where TBuilder: ObjectBuilder<TBuilder,TOutput,TInput>
 		where TOutput: class, IObjectModel, new()
-		where TInput : IObjectModel
+		where TInput : class,IObjectModel
 	{
 		public ObjectBuilder(TInput obj):base(obj){}
 		public TBuilder Id(Guid id)

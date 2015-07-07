@@ -11,12 +11,7 @@ namespace appPDU.Models
     {
         private IObjectModel _model;
         private WebPageMetadata _metadata;
-        [BsonElement("childrenIds")]
-        public IList<Guid> ChildrenIds
-        {
-            get { return _model.ChildrenIds; }
-            set { _model.ChildrenIds = value; }
-        }
+
         public WebPageModel()
         {
 
@@ -187,6 +182,32 @@ namespace appPDU.Models
             }
         }
 
+        public ICollection<AdjacencyModel> Predecessors
+        {
+            get
+            {
+                return _model.Predecessors;
+            }
+
+            set
+            {
+                _model.Predecessors = value;
+            }
+        }
+
+        public ICollection<AdjacencyModel> Successors
+        {
+            get
+            {
+                return _model.Successors;
+            }
+
+            set
+            {
+                _model.Successors = value;
+            }
+        }
+
         public void AddInternalObject(IObjectModel model)
         {
             var settings = new JsonSerializerSettings()
@@ -202,7 +223,6 @@ namespace appPDU.Models
             else
             {
                 _metadata = new WebPageMetadata();
-                _model.ChildrenIds = new List<Guid>();
             }
             Children = new List<ObjectModel>();
 
