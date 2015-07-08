@@ -18,15 +18,11 @@ namespace appPDU.Models
         }
         public void AddInternalObject(IObjectModel model)
         {
-            var settings = new JsonSerializerSettings()
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
             model.TypeName = "Container";
             model.Type = 4;
             if (model.Metadata != null)
             {
-                _metadata = JsonConvert.DeserializeObject<ContainerMetadata>(model.Metadata, settings);
+                _metadata = JsonConvert.DeserializeObject<ContainerMetadata>(model.Metadata);
             }
             else
             {
@@ -40,6 +36,11 @@ namespace appPDU.Models
         public IObjectModel GetPlainModel()
         {
             return _model.GetPlainModel();
+        }
+
+        public IObjectModel GetPlainCopy()
+        {
+            return _model.GetPlainCopy();
         }
 
         public ContainerAttributes Attributes

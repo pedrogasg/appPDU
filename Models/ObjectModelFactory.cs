@@ -28,11 +28,7 @@ namespace appPDU.Models
 
         private async Task<WebPageModel> CreateWebPageModel(IObjectModel model)
         {
-            var settings = new JsonSerializerSettings()
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
-            var metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata, settings);
+            var metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata);
             var builder = new WebPageBuilder(model);
             if (metadata.Template != null && metadata.Template != Guid.Empty && (model.Successors.Count == 0))
             {
@@ -44,7 +40,8 @@ namespace appPDU.Models
 
         private async Task CreateNewChild(IObjectModel model, WebPageMetadata metadata)
         {
-            var templateModel = await _repository.GetByIdAsync(metadata.Template);
+            var templateMain = await _repository.GetByIdAsync(metadata.Template);
+            var templateModel = templateMain.GetPlainCopy();
             templateModel.Type = 4;
             templateModel.Name = model.Name+"-Template";
             var template = new TemplateModel(templateModel);

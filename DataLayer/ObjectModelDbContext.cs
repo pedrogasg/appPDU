@@ -9,16 +9,15 @@ namespace appPDU.DataLayer
     {
         public DbSet<ObjectModel> ObjectModels { get; set; }
 
+        public DbSet<AdjacencyModel> AdjacencyModels { get; set; }
+
         protected override void OnConfiguring(EntityOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer(Startup.Configuration.Get("Data:DefaultConnection:ConnectionString"));
+            base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            base.OnModelCreating(modelBuilder);
-
             var objectModelBuilder = modelBuilder.Entity<ObjectModel>();
 
             objectModelBuilder
@@ -99,9 +98,10 @@ namespace appPDU.DataLayer
                 .InverseCollection(o => o.Successors)
                 .ForeignKey(o => o.SuccessorId);
 
-
+            base.OnModelCreating(modelBuilder);
 
         }
+
     }
 }
  

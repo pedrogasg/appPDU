@@ -8,17 +8,17 @@ using Microsoft.Data.Entity;
 
 namespace appPDU.Models
 {
-    public class ObjectModelEntityRepository:IObjectModelRepository<IObjectModel>
+    public class ObjectModelEntityRepository : IObjectModelRepository<IObjectModel>
     {
         private readonly ObjectModelDbContext _dbContext;
-        private readonly IQueryable<IObjectModel> _models;
+
         public ObjectModelEntityRepository(ObjectModelDbContext dbContext)
         {
             _dbContext = dbContext;
-            _models = dbContext.ObjectModels;
         }
         public async Task AddAsync(IObjectModel model)
         {
+            model.DateCreate = null;
             _dbContext.Add(model);
             await _dbContext.SaveChangesAsync();
         }
@@ -34,10 +34,10 @@ namespace appPDU.Models
         }
 
         public async Task<List<IObjectModel>> AllModelsAsync(Expression<Func<IObjectModel, bool>> filter = null,
-            Func<IQueryable<IObjectModel>, IOrderedQueryable<IObjectModel>> orderBy = null,bool includeData = false)
+            Func<IQueryable<IObjectModel>, IOrderedQueryable<IObjectModel>> orderBy = null, bool includeData = false)
         {
-            IQueryable<IObjectModel> models = _dbContext.ObjectModels;
-            if(filter != null)
+            IQueryable<IObjectModel> models = modelsQuery();
+            if (filter != null)
             {
                 models = models.Where(filter);
             }
@@ -65,33 +65,41 @@ namespace appPDU.Models
 
         public async Task<List<IObjectModel>> AllModelsByTypeAsync(int type)
         {
-            return  await _dbContext.ObjectModels.Where(o => o.Type == type).ToListAsync<IObjectModel>();
+            return await modelsQuery().Where(o => o.Type == type).ToListAsync<IObjectModel>();
         }
 
         public async Task<IObjectModel> GetByIdAsync(Guid id)
         {
-            return await _dbContext.ObjectModels.SingleAsync(o => o.Id == id);
+            return await modelsQuery().SingleAsync(o => o.Id == id);
         }
 
         public async Task<IList<IObjectModel>> GetByIdsAsync(IList<Guid> ids)
         {
-            return await _dbContext.ObjectModels.Where(o => ids.Contains(o.Id)).ToListAsync<IObjectModel>();
+            return await modelsQuery().Where(o => ids.Contains(o.Id)).ToListAsync<IObjectModel>();
         }
 
         public async Task<IObjectModel> GetByNameAsync(string name)
         {
-            return await _dbContext.ObjectModels.SingleAsync(o => o.Name == name);
+            return await modelsQuery().SingleAsync(o => o.Name == name);
         }
 
-        public Task<bool> TryDeleteAsync(Guid Id)
+        public async Task<bool> TryDeleteAsync(Guid id)
         {
-             //_dbContext.ObjectModels.Remove()
-            throw new NotImplementedException();
+            _dbContext.Remove(await modelsQuery().SingleAsync(o => o.Id == id));
+            var index = await _dbContext.SaveChangesAsync();
+            return index != -1;
         }
 
-        public Task<bool> TryUpdateAsync(IObjectModel model)
+        public async Task<bool> TryUpdateAsync(IObjectModel model)
         {
-            throw new NotImplementedException();
+            var changeTrack = _dbContext.Attach(model);
+            changeTrack.State = EntityState.Modified;
+            var index = await _dbContext.SaveChangesAsync();
+            return index != -1;
+        }
+        private IQueryable<IObjectModel> modelsQuery()
+        {
+            return _dbContext.ObjectModels.AsNoTracking();
         }
     }
 }

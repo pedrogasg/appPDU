@@ -97,11 +97,7 @@ namespace appPDU.Models
         {
             get
             {
-                var settings = new JsonSerializerSettings()
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                };
-                _model.Metadata = JsonConvert.SerializeObject(_metadata, settings);
+                _model.Metadata = JsonConvert.SerializeObject(_metadata);
                 return _model.Metadata;
             }
 
@@ -210,15 +206,11 @@ namespace appPDU.Models
 
         public void AddInternalObject(IObjectModel model)
         {
-            var settings = new JsonSerializerSettings()
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
             model.TypeName = "WebPage";
             model.Type = 1;
             if (model.Metadata != null)
             {
-                _metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata, settings);
+                _metadata = JsonConvert.DeserializeObject<WebPageMetadata>(model.Metadata);
             }
             else
             {
@@ -232,6 +224,11 @@ namespace appPDU.Models
         public IObjectModel GetPlainModel()
         {
             return _model.GetPlainModel();
+        }
+
+        public IObjectModel GetPlainCopy()
+        {
+            return _model.GetPlainCopy();
         }
     }
 

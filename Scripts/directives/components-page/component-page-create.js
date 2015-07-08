@@ -24,7 +24,9 @@
                     }
                 }
                 this.changeTitle = function (page) {
-                    page.name = page.title;
+                    if (!$scope.created) {
+                        page.name = page.title;
+                    }
                 }
             }],
             controllerAs:'ctrl',

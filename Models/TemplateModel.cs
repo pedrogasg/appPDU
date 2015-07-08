@@ -187,13 +187,9 @@ namespace appPDU.Models
 
         public void AddInternalObject(IObjectModel model)
         {
-            var settings = new JsonSerializerSettings()
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
             if (model.Metadata != null)
             {
-                _metadata = JsonConvert.DeserializeObject<TemplateMetadata>(model.Metadata, settings);
+                _metadata = JsonConvert.DeserializeObject<TemplateMetadata>(model.Metadata);
             }else
             {
                 _metadata = new TemplateMetadata();
@@ -243,6 +239,11 @@ namespace appPDU.Models
             {
                 _model.Successors = value;
             }
+        }
+
+        public IObjectModel GetPlainCopy()
+        {
+            return _model.GetPlainCopy();
         }
     }
 }

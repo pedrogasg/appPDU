@@ -6,11 +6,18 @@ namespace appPDU.Models
 {
     public class ObjectModel : IObjectModel
     {
-        public void AddInternalObject(IObjectModel model) { }
+        public void AddInternalObject(IObjectModel model)
+        {
+        }
 
         public IObjectModel GetPlainModel()
         {
             return this;
+        }
+
+        public IObjectModel GetPlainCopy()
+        {
+            return (IObjectModel)this.MemberwiseClone();
         }
 
         [BsonElement("id")]

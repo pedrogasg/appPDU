@@ -23,6 +23,7 @@ namespace appPDU.Models
         bool Visible { get; set; }
         int Version { get; set; }
         IObjectModel GetPlainModel();
+        IObjectModel GetPlainCopy();
 
         ICollection<AdjacencyModel> Predecessors { get; set; }
         ICollection<AdjacencyModel> Successors { get; set; }

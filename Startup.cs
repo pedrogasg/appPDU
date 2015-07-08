@@ -43,7 +43,7 @@ namespace appPDU
             });
             services.Configure<Settings>(Configuration);
             //services.AddSingleton<IObjectModelRepository, ObjectModelRepository>();
-            services.AddSingleton<IObjectModelRepository<IObjectModel>, ObjectModelEntityRepository>();
+            services.AddScoped<IObjectModelRepository<IObjectModel>, ObjectModelEntityRepository>();
             services.AddSingleton<IObjectModelFactory, ObjectModelFactory>();
         }
 
@@ -51,6 +51,14 @@ namespace appPDU
         {
             app.UseMvc();
             app.UseStaticFiles();
+            Newtonsoft.Json.JsonConvert.DefaultSettings = (() =>
+            {
+                var settings = new Newtonsoft.Json.JsonSerializerSettings();
+                settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                settings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
+                settings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                return settings;
+            });
         }
     }
 }

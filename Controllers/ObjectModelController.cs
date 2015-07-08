@@ -41,11 +41,7 @@ namespace appPDU.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateObjectModel([FromBody] ObjectModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return new BadRequestResult();
-            }
-            else
+            if (ModelState.IsValid)
             {
                 model.Visible = true;
                 model.Version = 1;
@@ -56,15 +52,16 @@ namespace appPDU.Controllers
                 Context.Response.Headers["Id"] = newModel.Id.ToString();
                 return new CreatedResult(url, newModel);
             }
+            return new BadRequestResult();
         }
         [HttpPut]
         public async Task<IActionResult> UpdateObjectModel([FromBody] ObjectModel model)
         {
-            IObjectModel newModel = await _factory.GetObjectModel(model);
-            var updated = await _repository.TryUpdateAsync(newModel);
+            IObjectModel webPage = await _factory.GetObjectModel(model);
+            var updated = await _repository.TryUpdateAsync(model);
             var status = updated ? 200 : 204;
             Context.Response.Headers["Id"] = model.Id.ToString();
-            return new ObjectResult(newModel)
+            return new ObjectResult(webPage)
             {
                 StatusCode = status
             };
@@ -72,7 +69,7 @@ namespace appPDU.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteObjectModel(Guid id)
         {
-
+             
             var erased = await _repository.TryDeleteAsync(id);
             if (erased)
             {
