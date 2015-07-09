@@ -1,4 +1,5 @@
 using appPDU.Models;
+using Microsoft.AspNet.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +12,10 @@ namespace appPDU.Builders
 	{
 		protected TOutput _objectModel;
 		protected TBuilder _this;
-        private List<Task> _tasks = new List<Task>();
+        internal List<Task> _tasks = new List<Task>();
+        [FromServices]
+        public IObjectModelRepository<IObjectModel> Repository { get; set; }
+
         protected ObjectBuilderBase(TInput obj = null)
 		{
 			_objectModel = new TOutput();
@@ -20,14 +24,14 @@ namespace appPDU.Builders
 			    _objectModel.AddInternalObject(obj);
             }
 			_this = (TBuilder)this; 	
-		}		
+		}
 		public TOutput Build()
 		{
 			TOutput result = _objectModel;
 			_objectModel = null;
 			return result;
 		}
-        
+
         public async Task<TOutput> AsyncBuild()
         {
             TOutput result = _objectModel;

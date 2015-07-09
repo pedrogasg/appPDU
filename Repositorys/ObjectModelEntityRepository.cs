@@ -18,7 +18,6 @@ namespace appPDU.Models
         }
         public async Task AddAsync(IObjectModel model)
         {
-            model.DateCreate = null;
             _dbContext.Add(model);
             await _dbContext.SaveChangesAsync();
         }
@@ -92,8 +91,9 @@ namespace appPDU.Models
 
         public async Task<bool> TryUpdateAsync(IObjectModel model)
         {
-            var changeTrack = _dbContext.Attach(model);
-            changeTrack.State = EntityState.Modified;
+            //var changeTrack = _dbContext.Attach(model);
+            //changeTrack.State = EntityState.Modified;
+            _dbContext.Update(model);
             var index = await _dbContext.SaveChangesAsync();
             return index != -1;
         }
