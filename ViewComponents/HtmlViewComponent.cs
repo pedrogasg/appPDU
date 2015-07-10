@@ -18,14 +18,14 @@ namespace appPDU.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(IObjectModel model)
         {
             var builder = new HtmlBuilder(model);
-            _model = await builder.AsyncBuild();
+            _model = await builder.BuildAsync();
             var defaultView =  "Default";
             return View(defaultView, _model);
         }
         public async Task<IViewComponentResult> InvokeAsync(IObjectModel model, string view)
         {
             var builder = new HtmlBuilder(model);
-            _model = await builder.AsyncBuild();
+            _model = await builder.BuildAsync();
             return View(view, _model);
         }
     }

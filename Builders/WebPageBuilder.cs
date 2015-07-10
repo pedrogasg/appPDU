@@ -27,13 +27,17 @@ namespace appPDU.Builders
             templateModel.Type = 4;
             templateModel.Name = model.Name + "-Template";
             var template = new TemplateModel(templateModel);
-
-            var successors = template.Successors;
+            await Repository.AddAsync(template.GetPlainModel());
+            var successors = templateMain.Successors;
+            var newSuccessors = new List<IObjectModel>();
             foreach (var successor in successors)
             {
-                successor.Successor.Name = model.Name + "-" + successor.Successor.Name;
+                var newSuccessor = successor.Successor.GetPlainCopy();
+                newSuccessor.Name = model.Name + "-" + successor.Successor.Name;
+                newSuccessors.Add(newSuccessor);
             }
-            await Repository.AddManyAsync(successors.Select(s => s.Successor as IObjectModel).ToList());
+
+            await Repository.AddSuccessors(templateModel, newSuccessors);
         }
 
     }

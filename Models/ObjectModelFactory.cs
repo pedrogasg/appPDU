@@ -29,7 +29,7 @@ namespace appPDU.Models
             {
                 builder.AddTemplate(metadata.Template);
             }
-            return await builder.AsyncBuild();
+            return await builder.BuildAsync();
         }
 
     }

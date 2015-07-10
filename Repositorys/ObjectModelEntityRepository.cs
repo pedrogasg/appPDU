@@ -32,6 +32,18 @@ namespace appPDU.Models
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task AddSuccessors(IObjectModel model, IList<IObjectModel> successors)
+        {
+            foreach (var successor in successors)
+            {
+                _dbContext.Add(successor);
+                var edge = new AdjacencyModel();
+                edge.SuccessorId = successor.Id;
+                edge.PredecessorId = model.Id;
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<List<IObjectModel>> AllModelsAsync(Expression<Func<IObjectModel, bool>> filter = null,
             Func<IQueryable<IObjectModel>, IOrderedQueryable<IObjectModel>> orderBy = null, bool includeData = false)
         {

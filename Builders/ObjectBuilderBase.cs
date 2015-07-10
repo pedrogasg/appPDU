@@ -32,7 +32,7 @@ namespace appPDU.Builders
 			return result;
 		}
 
-        public async Task<TOutput> AsyncBuild()
+        public async Task<TOutput> BuildAsync()
         {
             TOutput result = _objectModel;
             await Task.WhenAll(_tasks);

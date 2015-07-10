@@ -95,5 +95,10 @@ namespace appPDU.Models
         {
             throw new NotImplementedException();
         }
+
+        public Task AddSuccessors(IObjectModel model, IList<IObjectModel> successors)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

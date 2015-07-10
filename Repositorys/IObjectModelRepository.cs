@@ -13,6 +13,7 @@ namespace appPDU.Models
         Task<List<TObjectModel>> AllModelsByTypeAsync(int type);
         Task AddAsync(TObjectModel model);
         Task AddManyAsync(IList<TObjectModel> models);
+        Task AddSuccessors(IObjectModel model, IList<IObjectModel> successors);
         Task<TObjectModel> GetByIdAsync(Guid id);
 		Task<IList<TObjectModel>> GetByIdsAsync(IList<Guid> ids);
 		Task<TObjectModel> GetByNameAsync(string name);
