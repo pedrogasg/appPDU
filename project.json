@@ -14,7 +14,8 @@
     "Microsoft.AspNet.Server.WebListener": "1.0.0-*",
     "Microsoft.AspNet.StaticFiles": "1.0.0-*",
     "mongocsharpdriver": "2.0.0-beta4",
-    "Newtonsoft.Json": "6.0.1-*"
+    "Newtonsoft.Json": "6.0.1-*",
+    "Microsoft.Framework.Configuration.Json": "1.0.0-*"
   },
 
   "commands": {
@@ -29,9 +30,6 @@
 
   "frameworks": {
     "dnx451": {
-      "dependencies": {
-        "Microsoft.Framework.Configuration.Json": "1.0.0-*"
-      }
     }
   },
   "compilationOptions": {

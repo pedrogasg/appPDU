@@ -27,11 +27,11 @@
                 typeName: 'Container',
                 metadata: JSON.stringify(metadata),
                 data: '',
-                order: 0,
-                childrenIds: []
+                order: 0
             };
             templateChildren = [];
         }
+
         /**
         * Add the proper template uid to a page
         * @param {Guid} pageId - The Id of the page
@@ -64,8 +64,7 @@
                     type: 4,
                     typeName: 'Container',
                     metadata: JSON.stringify(childMetadata),
-                    data: '',
-                    childrenIds: []
+                    data: ''
                 };
             templateChildren.push(model);
         }
@@ -107,6 +106,16 @@
             }
             return saveModels(templateChildren);
         }
+
+        /**
+        * Save and Create successors for a single predeccessor 
+        *@params {Guid} parentId - The identifier of the predeccessor
+        *@params {ObjectModel[]} - An array of objects to create and attach to the Predeccessor
+        *@returns {Promise}  the $http promise with the ids of all the objects created
+        */
+        function saveChildren(parentId,children) {
+            return $http.post('api/addchildren/'+parentId, children);
+        }
         /**
         * Save many objects at the same time
         * @params {ObjectModel[]} - An array with all the objects to create
@@ -128,8 +137,8 @@
         * @param {creationCallback} callback - The callback to get the headers
         * @returns {Promise} The ngResourcePromise of the save template
         */
-        function saveTemplate(callback) {
-            return ObjectModels.save(template, callback)
+        function saveTemplate() {
+            return ObjectModels.save(template).the
         }
 
         /**

@@ -8,7 +8,6 @@ namespace appPDU.Builders
 		where TOutput: class, IObjectModel, new()
 		where TInput : class,IObjectModel
 	{
-        private readonly IObjectModelRepository<IObjectModel> _repository;
         public ObjectBuilder(TInput obj):base(obj){}
 		public TBuilder Id(Guid id)
 		{

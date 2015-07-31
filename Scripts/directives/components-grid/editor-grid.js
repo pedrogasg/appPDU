@@ -11,6 +11,14 @@
                 this.templateId = null;
                 this.isLarge = false;
                 this.validateGrid = function (id) {
+                    ContainerModels.saveTemplate().
+                        then(function (data) {
+                            C
+                            return ContainerModels.saveTemplateChildren()
+                        }).
+                        then(function (data) {
+
+                        })
                     ContainerModels.saveTemplateChildren().then(function (result) {
                         var ids = result.data;
                         ContainerModels.setChildrenIds(ids);

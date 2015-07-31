@@ -51,13 +51,25 @@ namespace appPDU.Controllers
         public async Task<IEnumerable<Guid>> CreationBatch([FromBody]ObjectModel[] models)
         {
             IList<Guid> Ids = new List<Guid>(models.Length);
+            await _repository.AddManyAsync(models);
             foreach (var model in models)
             {
-                var id = Guid.NewGuid();
-                model.Id = id;
-                Ids.Add(id);
+                Ids.Add(model.Id);
             }
-            await _repository.AddManyAsync(models);
+            return Ids;
+        }
+
+        [HttpPost]
+        [Route("/api/addchildren")]
+        public async Task<IEnumerable<Guid>> AddChildren(Guid parentId, [FromBody]ObjectModel[] children)
+        {
+            var parent = await _repository.GetByIdAsync(parentId);
+            var Ids = new List<Guid>(children.Length);
+            await _repository.AddSuccessors(parent, children);
+            foreach (var child in children)
+            {
+                Ids.Add(child.Id);
+            }
             return Ids;
         }
     }
